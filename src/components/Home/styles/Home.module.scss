@@ -1,0 +1,87 @@
+@use "../../../styles/variables" as vars;
+
+:root {
+	--black: #000;
+	--white: #fff;
+	--shadow: rgba(0, 0, 0, 0.1);
+	--px: 4px;
+	--primary-color: #b3af29;
+}
+
+$black: var(--black);
+$white: var(--white);
+$shadow: var(--shadow);
+$px: var(--px);
+$primary-color: var(--primary-color);
+
+@mixin center-flex {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin pixel-shadow {
+	text-shadow: 5px 5px 0px #431c7a;
+}
+
+.main {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-flow: column wrap;
+	position: relative;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+}
+
+.presentation {
+	@include center-flex;
+	flex-direction: column;
+	width: 100vw;
+	height: 50vh;
+	text-align: center;
+	box-sizing: border-box;
+	color: $primary-color;
+	@include pixel-shadow;
+	position: relative;
+}
+
+.presentation h1,
+h2 {
+	font-size: 5rem;
+	font-family: "pixelFont3", sans-serif;
+}
+
+.presentation p {
+	color: $black;
+	font-size: 1.2rem;
+	font-family: "pixelFont2", sans-serif;
+	text-shadow: none;
+}
+
+.nav {
+	width: 100vw;
+	height: 30vh;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.nav img {
+	height: 100%;
+	object-fit: contain;
+}
+
+.link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+	height: 100%;
+}
+.link a {
+	display: flex;
+	height: 100%;
+}

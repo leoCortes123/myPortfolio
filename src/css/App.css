@@ -1,0 +1,84 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: "pixelFont1", sans-serif;
+  image-rendering: pixelated;
+}
+
+.main-content {
+  position: relative;
+  width: calc(100vw - 50%);
+  height: calc(100vh - 50%);
+}
+
+.parallax {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url("../assets/images/background.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.layer1 {
+  height: 100%;
+  bottom: 0;
+  background: url("../assets/images/layer1.png") repeat-x;
+  background-size: 100% 100%;
+  animation: slideshow 0s linear infinite;
+  z-index: 1;
+  opacity: 1;
+}
+
+.layer2 {
+  height: 100%;
+  bottom: 0;
+  background: url("../assets/images/layer2.png") repeat-x;
+  background-size: 100% 100%;
+  animation: slideshow 0s linear infinite;
+  z-index: 1;
+  opacity: 1;
+}
+
+.layer3 {
+  height: 100%;
+  bottom: 0;
+  background: url("../assets/images/layer3.png") repeat-x;
+  background-size: 100% 100%;
+  animation: slideshow 0s linear infinite;
+  z-index: 1;
+  opacity: 1;
+}
+
+.layer4 {
+  height: 100%;
+  bottom: 0;
+  background: url("../assets/images/layer4.png") repeat-x;
+  background-size: 100% 100%;
+  animation: slideshow 0s linear infinite;
+  z-index: 1;
+  opacity: 1;
+}
+
+.layer5 {
+  height: 100%;
+  bottom: 0;
+  background: url("../assets/images/layer5.png") repeat-x;
+  background-size: 100% 100%;
+  animation: slideshow 0s linear infinite;
+  z-index: 1;
+  opacity: 1;
+}
+
+@keyframes slideshow {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

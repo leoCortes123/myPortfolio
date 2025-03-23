@@ -1,0 +1,107 @@
+.city {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 80%;
+}
+
+.building {
+  position: relative;
+  background-color: #333;
+  margin: 0 5px;
+  width: 50px;
+  animation: buildings 2s infinite alternate;
+}
+
+.building:nth-child(1) {
+  height: 100px;
+  background-color: #4b6cb7;
+}
+
+.building:nth-child(2) {
+  height: 150px;
+  background-color: #182848;
+}
+
+.building:nth-child(3) {
+  height: 200px;
+  background-color: #4b6cb7;
+}
+
+.building:nth-child(4) {
+  height: 120px;
+  background-color: #182848;
+}
+
+.building:nth-child(5) {
+  height: 180px;
+  background-color: #4b6cb7;
+}
+
+.window {
+  position: absolute;
+  background-color: #f0f0f0;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+/* Ventanas para el primer edificio */
+.building:nth-child(1) .window {
+  top: 20px;
+  left: 10px;
+}
+
+.building:nth-child(1) .window:nth-child(2) {
+  top: 40px;
+  left: 10px;
+}
+
+.building:nth-child(1) .window:nth-child(3) {
+  top: 60px;
+  left: 10px;
+}
+
+/* Ventanas para el segundo edificio */
+.building:nth-child(2) .window {
+  top: 30px;
+  left: 10px;
+}
+
+.building:nth-child(2) .window:nth-child(2) {
+  top: 60px;
+  left: 10px;
+}
+
+.building:nth-child(2) .window:nth-child(3) {
+  top: 90px;
+  left: 10px;
+}
+
+/* Animación para dar un efecto de parpadeo a las ventanas */
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.window {
+  animation: blink 1.5s infinite;
+}
+
+/* Animación para mover los edificios ligeramente */
+@keyframes buildings {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-10px);
+  }
+}
