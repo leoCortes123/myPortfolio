@@ -50,6 +50,30 @@ html {
   left: 0;
 }
 
+.homeButton {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  width: 5vw;
+  height: 5vw;
+  z-index: 9999; /* Asegurando que el botón esté siempre por encima */
+}
+
+.homeButton:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.homeButton img {
+  height: 70%;
+  width: 70%;
+  object-fit: contain;
+}
+
 .RGBTool {
   position: fixed;
   width: 300px;

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { Link, Route, Routes, useLocation } from 'react-router-dom';
+import HouseIcon from './assets/images/icons/houseIcon1.svg';
 import Background from './assets/images/svg/BackGround.jsx';
-import Home from './components/Home/Home.jsx';
+import AboutMe from './components/aboutMe/AboutMe.jsx';
+import Contact from './components/contact/Contact.jsx';
+import Home from './components/home/Home.jsx';
+import MyJourney from './components/myJourney/MyJourney.jsx';
 import './styles/App.scss';
 import NoiseCanvas from './utilities/NoiseCanvas.jsx';
-
 
 export default function App() {
   const [colorMode, setColorMode] = useState('oldGrayscale');
@@ -13,6 +17,8 @@ export default function App() {
   const toggleCanvasVisibility = () => {
     setCanvasVisible(!canvasVisible);
   };
+
+  const location = useLocation();
 
   return (
     <>
@@ -24,41 +30,23 @@ export default function App() {
         </button>
         {canvasVisible && <NoiseCanvas colorMode={colorMode} pixelSize={pixelSize} />}
 
-
         <Background
           xmlns={"http://www.w3.org/2000/svg"}
           viewBox={"0 0 1728 972"} />
 
-        {/* <div>
-          <label>
-            Color Mode:
-            <select value={colorMode} onChange={(e) => setColorMode(e.target.value)}>
-              <option value="oldGrayscale">Old Grayscale</option>
-              <option value="newGrayscale">New Grayscale</option>
-              <option value="color">Color</option>
-            </select>
-          </label>
-          <label>
-            Pixel Size:
-            <input
-              type="number"
-              value={pixelSize}
-              min="1"
-              max="10"
-              onChange={(e) => setPixelSize(parseInt(e.target.value))}
-            />
-          </label>
-        </div> */}
-
         {/* <RGBTool /> */}
+
+        {location.pathname !== '/' && (<div className='homeButton'> <Link to="/"><img src={HouseIcon} alt="About Me" /></Link></div>)}
+
         <div className='main-content'>
-          <Home />
-          {/* <MyJourney />
-          <Contact /> */}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<AboutMe />} />
+            <Route path="/myJourney" element={<MyJourney />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
         </div>
       </div>
     </>
   );
 }
-
-
