@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { parseString } from "xml2js";
 
-const inputDir = "D:/Programacion/VSCode/MyPortfolio_assets/svg_assets/";
+const inputDir = "C:/Users/Leonardo/Downloads/svg/";
 
 function createRect(path, pathX, pathY) {
     if (!path?.$?.d) return null;

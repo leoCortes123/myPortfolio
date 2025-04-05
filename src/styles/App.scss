@@ -29,62 +29,65 @@ html {
   height: vars.$content-height;
   overflow: hidden;
   font-family: "pixelFont1", sans-serif;
-  image-rendering: pixelated;
   box-sizing: border-box;
 }
 
 .main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
 }
 
-.main-content {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
+.main h1 {
+  font-family: "pixelFont2", sans-serif;
+  font-size: 1.8em;
+  font-weight: 700;
+  font-style: normal;
+  text-align: center;
+  margin: 0;
+  margin: 1em 1em;
+}
+
+.main p {
+  font-family: "pixelFont1", sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  font-style: normal;
+  text-align: justify;
+  margin: 0;
+  margin: 0 1em;
+}
+
+.background {
+  position: fixed;
   top: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+.main-content {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1;
 }
 
 .homeButton {
   position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   top: 20px;
   left: 20px;
   cursor: pointer;
   width: 5vw;
   height: 5vw;
-  z-index: 9999; /* Asegurando que el botón esté siempre por encima */
-}
-
-.homeButton:hover {
-  background-color: #e0e0e0;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
 }
 
 .homeButton img {
   height: 70%;
   width: 70%;
   object-fit: contain;
-}
-
-.RGBTool {
-  position: fixed;
-  width: 300px;
-  height: 500px;
-  top: 0;
-  right: 0;
-  border: 1px solid black;
-  background-color: #0f0;
-  padding: 20px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }

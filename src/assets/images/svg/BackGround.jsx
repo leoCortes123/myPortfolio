@@ -14,12 +14,6 @@ export default function Background({ viewBox = "0 0 1728 972", ...props }) {
       viewBox={viewBox}
       preserveAspectRatio="xMidYMid slice"
       style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-
       }}
       {...props}
     >
