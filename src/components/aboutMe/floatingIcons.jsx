@@ -11,8 +11,8 @@ export default function FloatingIcons({ size = 5 }) {
   const animationFrameId = useRef(null);
 
   // Configuración de velocidades (en píxeles por segundo)
-  const minSpeed = 20; // 20px/s
-  const maxSpeed = 60; // 60px/s
+  const minSpeed = 10;
+  const maxSpeed = 30;
   const targetFPS = 60;
   const frameTime = 1000 / targetFPS;
 

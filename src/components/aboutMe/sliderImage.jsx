@@ -1,170 +1,143 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import styles from './styles/sliderImage.module.scss';
 
-const SliderImage = () => {
-  const [images, setImages] = useState([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [loadingStates, setLoadingStates] = useState({});
-  const [error, setError] = useState(null);
+import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Arrow from '../../assets/images/icons/arrow.svg';
+import styles from './styles/SliderImage.module.scss';
 
-  // Cargar imágenes
+const Slide = React.memo(function Slide({ image, positionClass }) {
+  return (
+    <div className={`${styles.carouselItem} ${styles[positionClass]}`}>
+      <img
+        src={image}
+        alt={`Slide`}
+        loading={positionClass === 'active' ? 'eager' : 'lazy'}
+        decoding={positionClass === 'active' ? 'auto' : 'async'}
+      />
+    </div>
+  );
+});
+
+export default function SliderImage() {
+  const [state, setState] = useState({
+    images: [],
+    currentIndex: 0,
+    transitionDirection: null,
+    isTransitioning: false
+  });
+
+  const stateRef = useRef(state);
+  useEffect(() => {
+    stateRef.current = state;
+  }, [state]);
+
   useEffect(() => {
     const loadImages = async () => {
       try {
-        const imageModules = import.meta.glob('../../assets/images/photograph/*.{avif,webp,jpg,png}', {
-          eager: true,
-          import: 'default',
-          query: { as: 'url' }
-        });
-
-        const imageUrls = Object.values(imageModules);
-
-        if (imageUrls.length === 0) {
-          throw new Error("No se encontraron imágenes en el directorio");
-        }
-
-        setImages(imageUrls);
-
-        // Inicializar estados de carga
-        const initialLoadingStates = {};
-        imageUrls.forEach((_, index) => {
-          initialLoadingStates[index] = true;
-        });
-        setLoadingStates(initialLoadingStates);
-        setError(null);
+        const imageModules = await Promise.all(
+          Object.values(import.meta.glob('../../assets/images/photograph/*.{jpg,jpeg,png,gif,webp,avif}')).map(
+            async (resolver) => (await resolver()).default
+          )
+        );
+        setState(prev => ({ ...prev, images: imageModules }));
       } catch (error) {
-        console.error("Error al cargar imágenes:", error);
-        setError(error.message);
-        setImages([]);
+        console.error('Error loading images:', error);
       }
     };
 
     loadImages();
   }, []);
 
-  // Precargar imágenes
-  useEffect(() => {
-    if (images.length === 0) return;
+  const navigateSlide = useCallback((direction) => {
+    if (stateRef.current.isTransitioning || stateRef.current.images.length === 0) return;
 
-    const handleImageLoad = (index) => {
-      setLoadingStates(prev => ({
+    const newIndex = direction === 'next'
+      ? (stateRef.current.currentIndex + 1) % stateRef.current.images.length
+      : (stateRef.current.currentIndex - 1 + stateRef.current.images.length) % stateRef.current.images.length;
+
+    setState(prev => ({
+      ...prev,
+      isTransitioning: true,
+      transitionDirection: direction
+    }));
+
+    setTimeout(() => {
+      setState(prev => ({
         ...prev,
-        [index]: false
+        currentIndex: newIndex,
+        isTransitioning: false
       }));
-    };
+    }, 100);
+  }, []);
 
-    const handleImageError = (index, img) => {
-      console.error(`Error al cargar imagen: ${img}`);
-      setLoadingStates(prev => ({
-        ...prev,
-        [index]: false
-      }));
-    };
+  const imageIndices = useMemo(() => {
+    if (state.images.length === 0) return [];
+    return [
+      (state.currentIndex - 1 + state.images.length) % state.images.length,
+      state.currentIndex,
+      (state.currentIndex + 1) % state.images.length
+    ];
+  }, [state.currentIndex, state.images.length]);
 
-    images.forEach((img, index) => {
-      const image = new Image();
-      image.src = img;
-      image.onload = () => handleImageLoad(index);
-      image.onerror = () => handleImageError(index, img);
+  const positionClasses = useMemo(() => {
+
+    if (state.images.length === 0) return [];
+    return imageIndices.map(index => {
+      if (index === state.currentIndex) return 'active';
+      if (index === (state.currentIndex - 1 + state.images.length) % state.images.length) {
+        return state.transitionDirection === 'previous' ? 'previous-out' : 'previous-in';
+      }
+      if (index === (state.currentIndex + 1) % state.images.length) {
+        return state.transitionDirection === 'next' ? 'next-out' : 'next-in';
+      }
+      return 'hidden';
     });
-  }, [images]);
+  }, [state.currentIndex, state.images.length, state.transitionDirection, imageIndices]);
 
-  // Navegación
-  const goToPrevious = useCallback(() => {
-    setCurrentImageIndex(prevIndex =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  }, [images.length]);
-
-  const goToNext = useCallback(() => {
-    setCurrentImageIndex(prevIndex =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-  }, [images.length]);
-
-  const goToImage = useCallback((index) => {
-    if (index >= 0 && index < images.length) {
-      setCurrentImageIndex(index);
-    }
-  }, [images.length]);
-
-  // Auto-play
-  useEffect(() => {
-    if (images.length === 0 || isPaused) return;
-
-    const interval = setInterval(() => {
-      goToNext();
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [images.length, isPaused, goToNext]);
-
-  if (error) {
-    return (
-      <div className={styles.sliderError}>
-        Error al cargar imágenes: {error}
-      </div>
-    );
-  }
-
-  if (images.length === 0) {
-    return (
-      <div className={styles.sliderError}>
-        Cargando imágenes...
-      </div>
-    );
+  if (state.images.length === 0) {
+    return <div className={styles.loading}>Loading images...</div>;
   }
 
   return (
-    <div
-      className={styles.sliderContainer}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onFocus={() => setIsPaused(true)}
-      onBlur={() => setIsPaused(false)}
-    >
-      <div className={styles.sliderImageWrapper}>
-        {loadingStates[currentImageIndex] && (
-          <div className={styles.sliderLoadingOverlay}>
-            <div className={styles.sliderImageLoading}>Cargando imagen...</div>
-          </div>
-        )}
+    <div className={styles.carouselContainer}>
+      <Slide
+        key={`slide-${imageIndices[0]}`}
+        image={state.images[imageIndices[0]]}
+        positionClass={positionClasses[0]}
+      />
+      <Slide
+        key={`slide-${imageIndices[1]}`}
+        image={state.images[imageIndices[1]]}
+        positionClass={positionClasses[1]}
+      />
+      <Slide
+        key={`slide-${imageIndices[2]}`}
+        image={state.images[imageIndices[2]]}
+        positionClass={positionClasses[2]}
+      />
 
-        <button
-          className={`${styles.sliderArrow} ${styles.sliderArrowLeft}`}
-          onClick={goToPrevious}
-          aria-label="Imagen anterior"
-        />
-        <img
-          src={images[currentImageIndex]}
-          alt={`Photograph ${currentImageIndex + 1}`}
-          className={`${styles.sliderImage} ${loadingStates[currentImageIndex] ? styles.loading : styles.loaded}`}
-          loading="lazy"
-          decoding="async"
-        />
-
-        <button
-          className={`${styles.sliderArrow} ${styles.sliderArrowRight}`}
-          onClick={goToNext}
-          aria-label="Imagen siguiente"
-        />
-
-      </div>
-
-      <div className={styles.sliderDots}>
-        {images.map((_, index) => (
-          <button
-            key={index}
-            className={`${styles.sliderDot} ${index === currentImageIndex ? styles.active : ''}`}
-            onClick={() => goToImage(index)}
-            aria-label={`Ir a imagen ${index + 1}`}
-            aria-current={index === currentImageIndex}
-          />
-        ))}
-      </div>
+      <button
+        type='button'
+        onClick={() => navigateSlide('previous')}
+        disabled={state.isTransitioning}
+        aria-label="Previous image"
+        className={styles.prev}
+      >
+        <img src={Arrow} alt="Previous" />
+      </button>
+      <button
+        type='button'
+        onClick={() => navigateSlide('next')}
+        disabled={state.isTransitioning}
+        aria-label="Next image"
+        className={styles.next}
+      >
+        <img src={Arrow} alt="Next" className={styles.rotate} />
+      </button>
     </div>
   );
-};
+}
 
-export default SliderImage;
+Slide.propTypes = {
+  image: PropTypes.string.isRequired,
+  positionClass: PropTypes.string.isRequired,
+};

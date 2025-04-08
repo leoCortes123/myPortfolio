@@ -1,18 +1,17 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styles from './styles/PxlDiv.module.scss';
 
-export default function PxlDiv({ ...props }) {
-    const { size = 1 } = props;
-
+export default function PxlDiv({
+    size = 1,
+    color = '#000000',
+    bgColor = 'transparent',
+    children,
+    className,
+    style,
+    ...props
+}) {
     const cornerSize = 5 * size;
-
-    PxlDiv.propTypes = {
-        color: PropTypes.string,
-        size: PropTypes.number,
-        children: PropTypes.node,
-    };
-
     const childDivRef = useRef(null);
     const svgRef = useRef(null);
     const [dimensions, setDimensions] = useState({
@@ -22,99 +21,144 @@ export default function PxlDiv({ ...props }) {
         svgHeight: 0
     });
 
+    // Efecto para observar cambios de tamaño
     useEffect(() => {
-        const observers = [];
-
-        if (childDivRef.current) {
-            const childObserver = new ResizeObserver(entries => {
-                for (let entry of entries) {
-                    const { width, height } = entry.contentRect;
+        const observer = new ResizeObserver((entries) => {
+            entries.forEach(entry => {
+                const { width, height } = entry.contentRect;
+                if (entry.target === childDivRef.current) {
+                    setDimensions(prev => ({ ...prev, width, height }));
+                } else if (entry.target === svgRef.current) {
                     setDimensions(prev => ({
                         ...prev,
-                        width,
-                        height
+                        svgWidth: Math.max(0, width - (cornerSize * 2)),
+                        svgHeight: Math.max(0, height - (cornerSize * 2))
                     }));
                 }
             });
-            childObserver.observe(childDivRef.current);
-            observers.push(childObserver);
-        }
+        });
 
-        if (svgRef.current) {
-            const svgObserver = new ResizeObserver(entries => {
-                for (let entry of entries) {
-                    const { width, height } = entry.contentRect;
-                    setDimensions(prev => ({
-                        ...prev,
-                        svgWidth: width - (width > 0 ? (cornerSize * 2) : 0),
-                        svgHeight: height - (height > 0 ? (cornerSize * 2) : 0)
-                    }));
-                }
-            });
-            svgObserver.observe(svgRef.current);
-            observers.push(svgObserver);
-        }
+        if (childDivRef.current) observer.observe(childDivRef.current);
+        if (svgRef.current) observer.observe(svgRef.current);
 
-        return () => {
-            observers.forEach(observer => observer.disconnect());
-        };
-    }, []);
+        return () => observer.disconnect();
+    }, [cornerSize]);
 
+    // Genera los rectángulos del borde pixelado
+    const generateRectangles = useCallback(() => {
+        const s = size;
+        const w = dimensions.svgWidth;
+        const h = dimensions.svgHeight;
 
-    //border pixel
-    const rectangles = useMemo(() =>
+        return [
+            // Bordes principales
+            { x: cornerSize, y: 0, width: w, height: s }, // Top
+            { x: cornerSize, y: h + cornerSize * 2 - s, width: w, height: s }, // Bottom
+            { x: 0, y: cornerSize, width: s, height: h }, // Left
+            { x: cornerSize * 2 + w - s, y: cornerSize, width: s, height: h }, // Right
 
-        [
-            { x: cornerSize, y: 0, width: dimensions.svgWidth, height: 1 * size },
-            { x: cornerSize, y: dimensions.svgHeight + (cornerSize * 2) - 3, width: dimensions.svgWidth, height: 1 * size },
+            // Esquina superior izquierda
+            { x: 3 * s, y: s, width: 2 * s, height: s },
+            { x: s, y: 3 * s, width: s, height: 2 * s },
+            { x: 2 * s, y: 2 * s, width: s, height: s },
 
-            { x: 0, y: cornerSize, width: 1 * size, height: dimensions.svgHeight },
-            { x: cornerSize * 2 + dimensions.svgWidth - 1 * size, y: cornerSize, width: 1 * size, height: dimensions.svgHeight },
+            // Esquina superior derecha
+            { x: 5 * s + w, y: s, width: 2 * s, height: s },
+            { x: 8 * s + w, y: 3 * s, width: s, height: 2 * s },
+            { x: 7 * s + w, y: 2 * s, width: s, height: s },
 
-            { x: 3 * size, y: 1 * size, width: 2 * size, height: 1 * size },
-            { x: 1 * size, y: 3 * size, width: 1 * size, height: 2 * size },
-            { x: 2 * size, y: 2 * size, width: 1 * size, height: 1 * size },
-            { x: 5 * size + dimensions.svgWidth, y: 1 * size, width: 2 * size, height: 1 * size },
-            { x: 8 * size + dimensions.svgWidth, y: 3 * size, width: 1 * size, height: 2 * size },
-            { x: 7 * size + dimensions.svgWidth, y: 2 * size, width: 1 * size, height: 1 * size },
-            { x: 3 * size, y: 8 * size + dimensions.svgHeight, width: 2 * size, height: 1 * size },
-            { x: 1 * size, y: 5 * size + dimensions.svgHeight, width: 1 * size, height: 2 * size },
-            { x: 2 * size, y: 7 * size + dimensions.svgHeight, width: 1 * size, height: 1 * size },
-            { x: 5 * size + dimensions.svgWidth, y: 8 * size + dimensions.svgHeight, width: 2 * size, height: 1 * size },
-            { x: 8 * size + dimensions.svgWidth, y: 5 * size + dimensions.svgHeight, width: 1 * size, height: 2 * size },
-            { x: 7 * size + dimensions.svgWidth, y: 7 * size + dimensions.svgHeight, width: 1 * size, height: 1 * size }
-        ], [dimensions, size, cornerSize]);
+            // Esquina inferior izquierda
+            { x: 3 * s, y: 8 * s + h, width: 2 * s, height: s },
+            { x: s, y: 5 * s + h, width: s, height: 2 * s },
+            { x: 2 * s, y: 7 * s + h, width: s, height: s },
 
+            // Esquina inferior derecha
+            { x: 5 * s + w, y: 8 * s + h, width: 2 * s, height: s },
+            { x: 8 * s + w, y: 5 * s + h, width: s, height: 2 * s },
+            { x: 7 * s + w, y: 7 * s + h, width: s, height: s }
+        ];
+    }, [dimensions, size, cornerSize]);
+
+    // Genera el path interno
+    const generateInternalPath = useCallback(() => {
+        const s = size;
+        const w = dimensions.svgWidth;
+        const h = dimensions.svgHeight;
+
+        if (w <= 0 || h <= 0) return '';
+
+        return [
+
+            `M${cornerSize},0`,       // Start at top-left corner (after corner)
+            `h${w}`,                   // Draw top border
+            `v${s}`, `h${2 * s}`, `v${s}`, `h${s}`, `v${s}`, `h${s}`, `v${2 * s}`, `h${s}`, // Top-right corner
+            `v${h}`,                   // Draw right border
+            `h${-s}`, `v${s * 2}`, `h${-s}`, `v${s}`, `h${-s}`, `v${s}`, `h${-s * 2}`, `v${s}`, // Bottom-right corner
+            `h${-w}`,                  // Draw bottom border
+            `v${-s}`, `h${-2 * s}`, `v${-s}`, `h${-s}`, `v${-s}`, `h${-s}`, `v${-2 * s}`, `h${-s}`, // Bottom-left corner
+            `v${-h}`,                  // Draw left border
+            `h${s}`, `v${-s * 2}`, `h${s}`, `v${-s}`, `h${s}`, `v${-s}`, `h${s * 2}`, `v${-s}` // Top-left corner
+
+        ].join(' ');
+    }, [dimensions, size, cornerSize]);
+
+    const rectangles = useMemo(generateRectangles, [generateRectangles]);
+    const internalPath = useMemo(generateInternalPath, [generateInternalPath]);
+    const svgClassNames = [styles.svgContainer, className].filter(Boolean).join(' ');
 
     return (
         <svg
             ref={svgRef}
             preserveAspectRatio="none"
-            x={0}
-            y={0}
-            width={'100%'}
+            width="100%"
             height={dimensions.height + (cornerSize * 2) || '100%'}
-            className={styles.svgContainer}
+            className={svgClassNames}
+            style={style}
             {...props}
         >
+            <path
+                d={internalPath}
+                fill={bgColor}
+                stroke="none"
+            />
+
             <foreignObject
                 x={cornerSize}
                 y={cornerSize}
-                width={dimensions.svgWidth - (dimensions.svgWidth > 0 ? (cornerSize * 2) : 0) || '100%'}
-                height={dimensions.height || '100%'}
-                className={styles.foreignObject}
+                width={dimensions.svgWidth}
+                height={dimensions.height}
+                clipPath="url(#pxlClipPath)"
             >
-                <div ref={childDivRef} className={styles.pxlContent} >
-                    {props.children}
+                <div ref={childDivRef} className={styles.pxlContent}>
+                    {children}
                 </div>
             </foreignObject>
 
             <g>
                 {rectangles.map((rect, index) => (
-                    <rect key={index} x={rect.x} y={rect.y} width={rect.width} height={rect.height} fill="#000000" />
+                    <rect
+                        key={`pxl-rect-${index}`}
+                        x={rect.x}
+                        y={rect.y}
+                        width={rect.width}
+                        height={rect.height}
+                        fill={color}
+                    />
                 ))}
             </g>
+
+
+
 
         </svg>
     );
 }
+
+PxlDiv.propTypes = {
+    color: PropTypes.string,
+    bgColor: PropTypes.string,
+    size: PropTypes.number,
+    children: PropTypes.node,
+    className: PropTypes.string,
+    style: PropTypes.object,
+};

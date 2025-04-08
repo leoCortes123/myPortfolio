@@ -7,7 +7,6 @@ export default function Home() {
   return (
     <div className={styles.main}>
       <div className={styles.presentation}>
-        <h2>¡Hello!</h2>
         <h1 className={styles.name}>
           I&apos;m Leonardo Cortes
         </h1>

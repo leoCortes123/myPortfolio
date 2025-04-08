@@ -22,14 +22,32 @@
   font-style: normal;
 }
 
+* {
+  box-sizing: border-box;
+  position: relative;
+  min-width: 0;
+}
+
 body,
 html {
-  margin: 0;
-  padding: 0;
-  height: vars.$content-height;
+  min-height: 100dvh;
   overflow: hidden;
   font-family: "pixelFont1", sans-serif;
   box-sizing: border-box;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: justify;
 }
 
 .main {
@@ -37,26 +55,6 @@ html {
   width: 100vw;
   min-height: 100vh;
   overflow: hidden;
-}
-
-.main h1 {
-  font-family: "pixelFont2", sans-serif;
-  font-size: 1.8em;
-  font-weight: 700;
-  font-style: normal;
-  text-align: center;
-  margin: 0;
-  margin: 1em 1em;
-}
-
-.main p {
-  font-family: "pixelFont1", sans-serif;
-  font-size: 1em;
-  font-weight: 400;
-  font-style: normal;
-  text-align: justify;
-  margin: 0;
-  margin: 0 1em;
 }
 
 .background {
