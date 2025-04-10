@@ -6,6 +6,7 @@ export default function PxlDiv({
     size = 1,
     color = '#000000',
     bgColor = 'transparent',
+    textColor = '#000000',
     children,
     className,
     style,
@@ -129,7 +130,7 @@ export default function PxlDiv({
                 height={dimensions.height}
                 clipPath="url(#pxlClipPath)"
             >
-                <div ref={childDivRef} className={styles.pxlContent}>
+                <div ref={childDivRef} className={styles.pxlContent} style={{ color: textColor }}>
                     {children}
                 </div>
             </foreignObject>
@@ -157,6 +158,7 @@ export default function PxlDiv({
 PxlDiv.propTypes = {
     color: PropTypes.string,
     bgColor: PropTypes.string,
+    textColor: PropTypes.string,
     size: PropTypes.number,
     children: PropTypes.node,
     className: PropTypes.string,
