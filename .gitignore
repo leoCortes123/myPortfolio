@@ -26,3 +26,5 @@ eslint.config.js
 package-lock.json
 vite.config.js
 jsconfig.json
+
+.vercel
