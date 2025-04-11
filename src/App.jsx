@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Route, Routes, useLocation } from 'react-router-dom';
-import HouseIcon from './assets/images/icons/houseIcon1.svg';
+import home from './assets/images/home.png';
 import Background from './assets/images/svg/BackGround.jsx';
 import AboutMe from './components/aboutMe/AboutMe.jsx';
 import Contact from './components/contact/Contact.jsx';
@@ -26,11 +26,6 @@ export default function App() {
 
       <Background className='background' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1728 972" />
 
-      {location.pathname !== '/' && (
-        <div className='homeButton'>
-          <Link to="/"><img src={HouseIcon} alt="Home" /></Link>
-        </div>
-      )}
 
       <div className='main-content'>
         <Routes>
@@ -40,6 +35,13 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
+
+      {location.pathname !== '/' && (
+        <div className='homeButton'>
+          <Link to="/"><img src={home} alt="Home" /></Link>
+          <span>HOME</span>
+        </div>
+      )}
     </div>
   );
 }

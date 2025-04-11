@@ -2,8 +2,8 @@ import fs from 'fs/promises';
 import path from 'path';
 import sharp from 'sharp';
 
-const inputDir = '../assets/images/gifs/'; // carpeta de entrada
-const outputDir = '../assets/images/gifs2/'; // carpeta de salida
+const inputDir = 'D:/Programacion/VSCode/myPortfolio/src/assets/images/gifs'; // carpeta de entrada
+const outputDir = 'D:/Programacion/VSCode/myPortfolio/src/assets/images/gifs2'; // carpeta de salida
 // Crea la carpeta de salida si no existe
 await fs.mkdir(outputDir, { recursive: true });
 

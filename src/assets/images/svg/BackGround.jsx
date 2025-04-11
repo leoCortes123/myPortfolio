@@ -7,11 +7,10 @@ import Layer5 from './Layer5';
 import Layer6 from './Layer6';
 
 
-export default function Background({ viewBox = "0 0 1728 972", ...props }) {
+export default function Background({ ...props }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox={viewBox}
       preserveAspectRatio="xMidYMid slice"
       style={{
       }}

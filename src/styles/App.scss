@@ -35,6 +35,9 @@ html {
   font-family: "pixelFont1", sans-serif;
   box-sizing: border-box;
   margin: 0;
+  // div {
+  //   border: 1px solid #000;
+  // }
 }
 
 h1,
@@ -51,7 +54,7 @@ p {
 }
 
 .main {
-  position: relative;
+  position: absolute;
   width: 100vw;
   min-height: 100vh;
   overflow: hidden;
@@ -76,11 +79,11 @@ p {
 
 .homeButton {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 2%;
+  left: 2%;
   cursor: pointer;
-  width: 5vw;
-  height: 5vw;
+  width: 10vw;
+  height: 10vw;
   z-index: 10;
 }
 
