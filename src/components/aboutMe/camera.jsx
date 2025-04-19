@@ -9,7 +9,7 @@ export default function Camera() {
       width: '100%',
       height: '100%',
       position: 'relative',
-      aspectRatio: '800/560' // Mantiene la proporción original de 800x560
+      aspectRatio: '800/560'
     }}>
       <svg
         viewBox="0 0 800 560"

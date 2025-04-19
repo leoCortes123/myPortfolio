@@ -13,6 +13,11 @@
   src: url("../assets/font/Retro_Gaming.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-variant: normal;
+  font-feature-settings:
+    "tnum" on,
+    "lnum" on,
+    "zero" on;
 }
 
 @font-face {
@@ -38,6 +43,24 @@ html {
   // div {
   //   border: 1px solid #000;
   // }
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  z-index: 999;
 }
 
 h1,
@@ -91,4 +114,11 @@ p {
   height: 70%;
   width: 70%;
   object-fit: contain;
+}
+
+.btnFix {
+  position: fixed;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "pixelFont1", sans-serif;
 }

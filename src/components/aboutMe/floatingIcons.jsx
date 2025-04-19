@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
 import styles from './styles/FloatingIcons.module.scss';
 
-const svgIcons = Object.entries(import.meta.glob('../../assets/images/icons/programmingIcons/*.svg', { eager: true }))
+const svgIcons = Object.entries(import.meta.glob('../../assets/images/icons/aboutMeIcons/*.png', { eager: true }))
   .map(([, module]) => module.default);
 
 export default function FloatingIcons({ size = 5 }) {
@@ -10,7 +10,6 @@ export default function FloatingIcons({ size = 5 }) {
   const iconRefs = useRef([]);
   const animationFrameId = useRef(null);
 
-  // Configuración de velocidades (en píxeles por segundo)
   const minSpeed = 10;
   const maxSpeed = 30;
   const targetFPS = 60;
@@ -27,7 +26,6 @@ export default function FloatingIcons({ size = 5 }) {
       const deltaTime = timestamp - lastTimestamp;
       lastTimestamp = timestamp;
 
-      // Solo actualizar si ha pasado el tiempo suficiente para el framerate objetivo
       if (deltaTime < frameTime) {
         animationFrameId.current = requestAnimationFrame(updatePositions);
         return;
@@ -41,15 +39,12 @@ export default function FloatingIcons({ size = 5 }) {
         const icon = iconRef;
         const data = JSON.parse(icon.dataset.movement);
 
-        // Calcular desplazamiento basado en el tiempo transcurrido
         const distanceX = data.xSpeed * (deltaTime / 1000);
         const distanceY = data.ySpeed * (deltaTime / 1000);
 
-        // Actualizar posición
         data.x += distanceX;
         data.y += distanceY;
 
-        // Rebotar en bordes
         if (data.x <= 0) {
           data.x = 0;
           data.xSpeed = Math.abs(data.xSpeed);
@@ -66,7 +61,6 @@ export default function FloatingIcons({ size = 5 }) {
           data.ySpeed = -Math.abs(data.ySpeed);
         }
 
-        // Aplicar nueva posición
         icon.style.left = `${data.x}px`;
         icon.style.top = `${data.y}px`;
         icon.dataset.movement = JSON.stringify(data);
@@ -75,7 +69,6 @@ export default function FloatingIcons({ size = 5 }) {
       animationFrameId.current = requestAnimationFrame(updatePositions);
     };
 
-    // Inicializar posiciones y velocidades
     const containerRect = container.getBoundingClientRect();
     iconRefs.current.forEach((iconRef) => {
       if (!iconRef) return;
@@ -84,13 +77,11 @@ export default function FloatingIcons({ size = 5 }) {
       const iconWidth = (containerRect.width * size) / 100;
       const iconHeight = (iconWidth * icon.naturalHeight) / icon.naturalWidth;
 
-      // Función para generar velocidad aleatoria con dirección
       const getRandomSpeed = () => {
         const speed = Math.random() * (maxSpeed - minSpeed) + minSpeed;
         return speed * (Math.random() > 0.5 ? 1 : -1);
       };
 
-      // Asegurar que el icono esté completamente dentro del contenedor
       const maxX = containerRect.width - iconWidth;
       const maxY = containerRect.height - iconHeight;
 
@@ -117,7 +108,7 @@ export default function FloatingIcons({ size = 5 }) {
         cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, [size]); // minSpeed y maxSpeed son constantes, no necesitan estar en las dependencias
+  }, [size]);
 
   return (
     <div ref={containerRef} className={styles.container}>

@@ -82,7 +82,7 @@ button {
   background: none;
   border: none;
   border-radius: 50%;
-  width: 40px; /* Tamaño fijo para mejor control */
+  width: 40px;
   height: 40px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -108,12 +108,10 @@ button {
   }
 }
 
-/* Botón "anterior" */
 button.prev {
   left: 10px;
 }
 
-/* Botón "siguiente" */
 button.next {
   right: 10px;
 }

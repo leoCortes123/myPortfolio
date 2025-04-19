@@ -53,10 +53,10 @@
 
   .colorPalette {
     display: flex;
-    flex-direction: column; /* Cambiar a columna para orientación vertical */
-    align-items: stretch; /* Alinear elementos horizontalmente */
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
-    height: auto; /* Altura automática */
+    height: auto;
     margin-top: 20px;
     overflow: hidden;
 
@@ -68,19 +68,19 @@
       position: relative;
       border: 1px solid #ccc;
       border-radius: 4px;
-      margin-bottom: 5px; /* Espaciado entre bloques */
+      margin-bottom: 5px;
       padding: 10px;
       box-sizing: border-box;
 
       &:last-child {
-        margin-bottom: 0; /* Eliminar margen inferior del último bloque */
+        margin-bottom: 0;
       }
 
       .colorCode {
         color: #fff;
         font-size: 12px;
         font-weight: bold;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Mejorar legibilidad */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
       }
     }
   }

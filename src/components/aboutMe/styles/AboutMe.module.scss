@@ -11,7 +11,7 @@
 }
 
 .animationSpace {
-  height: 30vh;
+  height: 40vh;
   width: 90%;
   position: relative;
 }
@@ -20,20 +20,19 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   width: 90vw;
   min-height: 80vh;
-  margin-bottom: 5em;
+  margin-bottom: 1em;
 }
 
 .presentation {
+  position: relative;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
-  flex: 3;
 }
 
 .textSection1 {
@@ -43,17 +42,21 @@
   align-items: center;
 }
 
-.meditationContent {
+.avatarContainer {
+  position: relative;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-end;
-  align-items: flex-end;
+  justify-content: center;
+  align-items: center;
   flex: 1;
 }
 
-.meditationContent img {
-  width: 70%;
-  height: auto;
+.pxlDivCotainer {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  flex: 4;
 }
 
 .textSection {

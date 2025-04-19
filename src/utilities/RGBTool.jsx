@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import styles from "../styles/RGBTool.module.scss";
 
-// Función para convertir un color RGB a su complementario
 const getComplementaryColor = (r, g, b) => {
   return [255 - r, 255 - g, 255 - b];
 };
 
-// Función para generar pasos intermedios entre dos colores
 const generateGradientSteps = (startColor, endColor, steps) => {
   const gradient = [];
   for (let i = 0; i < steps; i++) {
@@ -19,19 +17,17 @@ const generateGradientSteps = (startColor, endColor, steps) => {
   return gradient;
 };
 
-// Función para convertir un color RGB a formato hexadecimal
 const rgbToHex = (r, g, b) => {
   const toHex = (value) => value.toString(16).padStart(2, "0");
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 };
 
 export default function RGBTool() {
-  const [colorInput, setColorInput] = useState("#ff0000"); // Valor inicial: rojo (#ff0000)
-  const [stepsInput, setStepsInput] = useState(5); // Valor inicial: 5 pasos
+  const [colorInput, setColorInput] = useState("#ff0000");
+  const [stepsInput, setStepsInput] = useState(5);
   const [gradientColors, setGradientColors] = useState([]);
 
   const handleGenerate = () => {
-    // Convertir el color hexadecimal a RGB
     const rgbArray = [
       parseInt(colorInput.slice(1, 3), 16),
       parseInt(colorInput.slice(3, 5), 16),
@@ -39,7 +35,7 @@ export default function RGBTool() {
     ];
 
     const complementaryColor = getComplementaryColor(...rgbArray);
-    const steps = Math.max(2, stepsInput); // Asegurar al menos 2 pasos
+    const steps = Math.max(2, stepsInput);
     const gradient = generateGradientSteps(rgbArray, complementaryColor, steps);
     setGradientColors(gradient);
   };
@@ -71,7 +67,6 @@ export default function RGBTool() {
       <button onClick={handleGenerate}>Generar Paleta</button>
       <div className={styles.colorPalette}>
         {gradientColors.map((color, index) => {
-          // Extraer valores RGB del color
           const rgbValues = color.match(/\d+/g).map(Number);
           const hexCode = rgbToHex(...rgbValues);
           return (

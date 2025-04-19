@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './styles/Carousel.module.scss';
 
 export default function Carousel() {
-  // Obtener todas las imágenes disponibles
   const allImages = Object.values(import.meta.glob('../../assets/images/gifs/*.{webp,gif,png,jpg,jpeg}', {
     eager: true
   })).map(module => module.default);
@@ -11,7 +10,6 @@ export default function Carousel() {
     return <div>No se encontraron imágenes</div>;
   }
 
-  // Función para mezclar el array de imágenes aleatoriamente (Fisher-Yates shuffle)
   const shuffleArray = (array) => {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -21,14 +19,13 @@ export default function Carousel() {
     return newArray;
   };
 
-  // Mezclar las imágenes
   const shuffledImages = shuffleArray(allImages);
 
   return (
     <div className={styles.slider}>
       {shuffledImages.map((img, index) => {
         const isLeft = (index % 2) === 0;
-        const delay = index * 2; // Delay for each image
+        const delay = index * 2;
         const imageHeightPercentage = 20 + Math.random() * 30;
         const RandomTranslateY = Math.floor(Math.random() * 201) - 100;
         const translateY = RandomTranslateY < 0

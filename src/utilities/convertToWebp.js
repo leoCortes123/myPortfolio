@@ -4,17 +4,14 @@ import sharp from 'sharp';
 
 const inputDir = 'D:/Programacion/VSCode/myPortfolio/src/assets/images/gifs'; // carpeta de entrada
 const outputDir = 'D:/Programacion/VSCode/myPortfolio/src/assets/images/gifs2'; // carpeta de salida
-// Crea la carpeta de salida si no existe
 await fs.mkdir(outputDir, { recursive: true });
 
-// Lee todos los archivos de la carpeta
 const files = await fs.readdir(inputDir);
 
 for (const file of files) {
   const ext = path.extname(file).toLowerCase();
   const inputPath = path.join(inputDir, file);
 
-  // Solo procesa gif y webp
   if (ext !== '.gif' && ext !== '.webp') continue;
 
   const image = sharp(inputPath, { animated: ext === '.gif' });

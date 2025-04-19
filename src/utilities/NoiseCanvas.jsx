@@ -21,10 +21,10 @@ export default function NoiseCanvas({ colorMode, pixelSize }) {
           switch (colorMode) {
             case 'color':
               const colors = [
-                [255, 0, 0], // Rojo
-                [0, 255, 0], // Verde
-                [0, 0, 255], // Azul
-                [255, 255, 255], // Blanco
+                [255, 0, 0],
+                [0, 255, 0],
+                [0, 0, 255],
+                [255, 255, 255],
               ];
               color = colors[Math.floor(Math.random() * colors.length)];
               break;
