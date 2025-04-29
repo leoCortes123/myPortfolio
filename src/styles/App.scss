@@ -27,6 +27,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "pixelFont4";
+  src: url("../assets/font/joystix.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
   position: relative;
@@ -40,6 +47,7 @@ html {
   font-family: "pixelFont1", sans-serif;
   box-sizing: border-box;
   margin: 0;
+  //image-rendering: pixelated;
   // div {
   //   border: 1px solid #000;
   // }
@@ -70,17 +78,21 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
+  margin: 0;
+  padding: 0;
 }
 
 p {
   text-wrap: justify;
+  margin: 0;
+  padding: 0;
 }
 
 .main {
   position: absolute;
   width: 100vw;
-  min-height: 100vh;
-  overflow: hidden;
+  height: 100vh;
+  overflow: auto;
 }
 
 .background {
@@ -95,7 +107,7 @@ p {
 .main-content {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
   z-index: 1;
 }

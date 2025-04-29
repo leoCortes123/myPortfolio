@@ -1,0 +1,23 @@
+.childrenContent {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  span {
+    font-family: "pixelFont4", sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    display: inline-block;
+    line-height: 1;
+    transform: scale(1.5);
+    text-shadow:
+      3px 3px 0 #f4423c,
+      3px 0px 0 #f4423c,
+      -1px -1px 0 #f4423c,
+      1px -1px 0 #f4423c,
+      -1px 1px 0 #f4423c;
+  }
+}

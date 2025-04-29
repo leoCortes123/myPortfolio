@@ -75,7 +75,7 @@
   display: none;
 }
 
-button {
+.btnSlider {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -108,11 +108,11 @@ button {
   }
 }
 
-button.prev {
+.btnSlider .prev {
   left: 10px;
 }
 
-button.next {
+.btnSlider .next {
   right: 10px;
 }
 

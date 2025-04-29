@@ -1,0 +1,93 @@
+// MyJourney.module.scss (ESTILOS)
+.gridContainer {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0px;
+  height: 70%;
+  width: 80%;
+  margin: 10% auto 0 auto;
+  position: relative;
+}
+
+/* Tus estilos originales de los items SIN CAMBIOS */
+.item0 {
+  background-color: #604090;
+  grid-row: 1 / 4;
+  grid-column: 1 / 3;
+}
+.item1 {
+  background-color: #ffa300;
+  grid-row: 1 / 3;
+  grid-column: 3 / 7;
+}
+.item2 {
+  background-color: #ffec27;
+  grid-row: 3 / 5;
+  grid-column: 3 / 7;
+}
+.item3 {
+  background-color: #00e436;
+  grid-row: 4 / 7;
+  grid-column: 1 / 3;
+}
+.item4 {
+  background-color: #29adff;
+  grid-row: 5 / 7;
+  grid-column: 3 / 5;
+}
+.item5 {
+  background-color: #83769c;
+  grid-row: 5 / 7;
+  grid-column: 5 / 7;
+}
+
+.gridContainer article {
+  padding: 1rem;
+  color: #000;
+  text-shadow: 1px 1px 0 #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+/* Overlay SIN TRANSPARENCIA y SIN FONDO BLANCO */
+.detailOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #604090; /* Color sólido */
+  z-index: 100;
+  color: white;
+  padding: 2rem;
+  animation: pixelAppear 0.3s steps(4);
+  border: 4px solid black;
+}
+
+@keyframes pixelAppear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Botón de cerrar simple */
+.closeButton {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: #fa2f1c;
+  border: 5px solid #000;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}

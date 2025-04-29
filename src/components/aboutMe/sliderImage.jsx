@@ -120,16 +120,17 @@ export default function SliderImage() {
         onClick={() => navigateSlide('previous')}
         disabled={state.isTransitioning}
         aria-label="Previous image"
-        className={styles.prev}
+        className={`${styles.btnSlider} ${styles.prev}`}
       >
         <img src={Arrow} alt="Previous" />
       </button>
+
       <button
         type='button'
         onClick={() => navigateSlide('next')}
         disabled={state.isTransitioning}
         aria-label="Next image"
-        className={styles.next}
+        className={`${styles.btnSlider} ${styles.next}`}
       >
         <img src={Arrow} alt="Next" className={styles.rotate} />
       </button>

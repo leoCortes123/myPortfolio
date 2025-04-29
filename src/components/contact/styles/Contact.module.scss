@@ -1,0 +1,145 @@
+// Contact.module.scss
+.contactContainer {
+  width: 70%;
+  margin: 5rem auto;
+  padding: 2rem;
+  border: 3px solid #d4a017;
+  background-color: rgba(40, 40, 40, 0.8);
+  position: relative;
+}
+
+.title {
+  color: #d4a017;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+
+  span {
+    animation: blink 1s step-end infinite;
+  }
+}
+.subtitle {
+  color: #d4a017;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  text-shadow: 2px 2px 0 #5a3a00;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.doubleField {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+
+  .formGroup {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+
+  &.active {
+    .label {
+      color: #ffc32d;
+    }
+
+    .input,
+    .textarea {
+      border-color: #ffc32d;
+    }
+  }
+}
+
+.label {
+  color: #d4a017;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.input,
+.textarea {
+  padding: 10px;
+  border: 2px solid #8b5a00;
+  background-color: rgba(20, 20, 20, 0.8);
+  color: #ffc32d;
+  font-size: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: #ffc32d;
+  }
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.buttonContainer {
+  margin-top: 10px;
+}
+
+.submitButton {
+  padding: 12px;
+  width: 100%;
+  background-color: #8b5a00;
+  color: #ffc32d;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #d4a017;
+    color: #5a3a00;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    background-color: #5a5a5a;
+    color: #d4a017;
+    cursor: not-allowed;
+  }
+}
+
+.successMessage,
+.errorMessage {
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.successMessage {
+  color: #ffc32d;
+  background-color: rgba(90, 58, 0, 0.3);
+}
+
+.errorMessage {
+  color: #ff6b6b;
+  background-color: rgba(90, 0, 0, 0.3);
+}
+
+@keyframes blink {
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

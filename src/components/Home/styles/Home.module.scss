@@ -14,7 +14,7 @@ $px: var(--px);
 
 .main {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
 	flex-flow: column wrap;
 	position: relative;
@@ -29,8 +29,8 @@ $px: var(--px);
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-
-	width: 70%;
+	width: 80%;
+	margin-bottom: 3rem;
 }
 
 .presentation .filter {
@@ -43,18 +43,20 @@ $px: var(--px);
 	filter: drop-shadow(0 0 5px #d3d3d3);
 }
 
-.presentation h1 {
-	font-size: 4rem; /* Un poco más pequeño para pantallas móviles */
+.presentation .principalText {
+	font-size: 5rem;
+	letter-spacing: 2px;
 	font-family: "pixelFont3", sans-serif;
-	color: #fffa75;
-	filter: drop-shadow(0 0 8px rgb(114, 115, 151));
-	letter-spacing: 1.5px;
+	color: #f7bd38;
+	filter: drop-shadow(1px 1px 8px rgb(114, 115, 151));
 	margin-bottom: 1rem;
+
 	text-shadow:
-		2px 2px 0 #000,
-		-1px -1px 0 #000,
-		1px -1px 0 #000,
-		-1px 1px 0 #000; /* Borde consistente con el p */
+		4px 4px 0 #f4423c,
+		4px 0px 0 #f4423c,
+		-1px -1px 0 #f4423c,
+		1px -1px 0 #f4423c,
+		-1px 1px 0 #f4423c;
 }
 
 // .presentation:hover {
@@ -84,8 +86,9 @@ $px: var(--px);
 .presentation .p1 {
 	font-size: 1.5rem;
 	font-family: "pixelFont2", sans-serif;
-	margin: 0;
+	margin-top: 2rem;
 	color: #e0e0e0;
+	letter-spacing: 2px;
 	text-shadow:
 		2px 2px 0 #000,
 		-1px -1px 0 #000,
@@ -111,28 +114,29 @@ $px: var(--px);
 	font-family: "pixelFont1", monospace;
 	font-variant-numeric: tabular-nums;
 	letter-spacing: 0;
+	margin-top: 1rem;
 }
 
 .line1 {
-	position: relative;
 	border-right: 2px solid rgba(0, 0, 0);
 	font-size: 1rem;
 	text-align: center;
 	white-space: nowrap;
 	overflow: hidden;
-	color: #e26d00;
+	color: #fff;
+	letter-spacing: 1px;
 	filter: drop-shadow(0px 0px 3px #fffa75);
 	text-shadow:
 		1px 1px 0 #000,
 		-1px -1px 0 #000,
 		1px -1px 0 #000,
 		-1px 1px 0 #000;
-}
-
-.animTypewriter {
+	display: inline-block;
+	padding-left: 0.25rem;
+	padding-bottom: 0.25rem;
 	animation:
-		typewriter 3s steps(44) 0.8s 1 normal both,
-		blinkTextCursor 0.8s steps(76) infinite normal;
+		typewriter 5s steps(76) 1 normal both,
+		blinkTextCursor 1s infinite normal;
 }
 
 @keyframes typewriter {
@@ -178,8 +182,8 @@ $px: var(--px);
 }
 
 .nav {
-	width: 100vw;
-	height: 30vh;
+	width: 90%;
+	height: 30%;
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-around;
@@ -204,4 +208,38 @@ $px: var(--px);
 	height: 100%;
 	outline: none;
 	border: none;
+}
+
+.contdownContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column nowrap;
+
+	.contdown {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		align-items: center;
+		font-family: "pixelFont3", sans-serif;
+		span {
+			color: #f7bd38;
+			font-size: 5rem;
+			letter-spacing: 2px;
+			display: inline-block;
+			line-height: 1;
+			transform: scale(1.5);
+			margin: 0.5rem 0;
+			text-shadow:
+				-1px -1px 0 #f00,
+				1px -1px 0 #0f0,
+				-1px 1px 0 #00f;
+		}
+	}
+}
+.btnFix {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 25em;
 }
