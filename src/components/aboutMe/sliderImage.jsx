@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Arrow from '../../assets/images/icons/arrow.svg';
-import styles from './styles/SliderImage.module.scss';
+import styles from './styles/sliderImage.module.scss';
 
 const Slide = React.memo(function Slide({ image, positionClass }) {
   return (
