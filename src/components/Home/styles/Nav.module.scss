@@ -1,0 +1,261 @@
+.nav {
+  width: 90%;
+  height: 40%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  font-family: "pixelFont2", sans-serif;
+
+  .innerButton,
+  .innerButton2,
+  .innerButton3 {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+    pointer-events: none;
+
+    .content,
+    .title {
+      pointer-events: all;
+    }
+
+    .title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 20%;
+      width: 60%;
+      padding: 1.5em 0;
+      border-bottom-left-radius: 1.5em;
+      border-bottom-right-radius: 1.5em;
+      color: #fff;
+      text-shadow:
+        1px 1px 0 #000,
+        -1px -1px 0 #000;
+      border: 2px solid #000;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .content {
+      position: relative;
+      height: 80%;
+      width: 60%;
+      background-color: transparent;
+
+      .base {
+        position: absolute;
+        bottom: 0;
+        height: 20%;
+        width: 100%;
+        clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+        background: linear-gradient(to top, #000, #949494);
+      }
+
+      img {
+        position: absolute;
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+
+  .innerButton {
+    scale: 0.8;
+    .title {
+      background-color: #202775;
+      box-shadow: inset 0 0 0 2px #5f649e;
+      color: #fff;
+      border: 2px solid #000;
+    }
+    .img1 {
+      width: 40%;
+      right: 10%;
+      bottom: 3%;
+    }
+    .img2 {
+      width: 30%;
+      left: 30%;
+      bottom: 0%;
+    }
+    .img3 {
+      width: 45%;
+      right: 5%;
+      bottom: 0%;
+    }
+    .img4 {
+      width: 40%;
+      right: 0%;
+      bottom: 7%;
+    }
+    .img5 {
+      width: 50%;
+      left: 10%;
+      bottom: 5%;
+    }
+    .img6 {
+      width: 45%;
+      left: 0;
+      bottom: 4%;
+    }
+  }
+
+  .innerButton2 {
+    margin-bottom: 3rem;
+    .title {
+      background-color: #851d1d;
+      box-shadow: inset 0 0 0 2px #d62f2f;
+    }
+    .img1 {
+      width: 60%;
+      right: 0%;
+      bottom: 0%;
+    }
+    .img2 {
+      width: 30%;
+      left: 20%;
+      bottom: 0%;
+    }
+    .img3 {
+      width: 35%;
+      right: 30%;
+      bottom: 0%;
+    }
+    .img4 {
+      width: 30%;
+      right: 5%;
+      bottom: 0%;
+    }
+    .img5 {
+      width: 70%;
+      left: 0%;
+      bottom: 10%;
+    }
+    .img6 {
+      width: 35%;
+      left: 0%;
+      bottom: 5%;
+    }
+  }
+
+  .innerButton3 {
+    scale: 0.8;
+    .title {
+      background-color: #0c571b;
+      box-shadow: inset 0 0 0 2px #15982f;
+      color: #fff;
+      border: 2px solid #000;
+    }
+    .img1 {
+      width: 40%;
+      left: 40%;
+      bottom: 3%;
+    }
+    .img2 {
+      width: 30%;
+      left: 0%;
+      bottom: 0%;
+    }
+    .img3 {
+      width: 45%;
+      right: 5%;
+      bottom: 0%;
+    }
+    .img4 {
+      width: 65%;
+      right: 0%;
+      bottom: 5%;
+    }
+    .img5 {
+      width: 35%;
+      left: 20%;
+      bottom: 0%;
+    }
+    .img6 {
+      width: 50%;
+      left: 0;
+      bottom: 10%;
+    }
+  }
+
+  // Hover effects for Button 1
+  .hoveredBtn1 {
+    transform: translateY(-10px);
+
+    .btn1Img1 {
+      transform: translateY(-5px);
+    }
+    .btn1Img2 {
+      transform: translateY(-6px);
+    }
+    .btn1Img3 {
+      transform: translate(-7px);
+    }
+    .btn1Img4 {
+      transform: translate(7px, -7px) scale(1.1);
+    }
+    .btn1Img5 {
+      transform: translate(-7px, 7px) scale(1.1);
+    }
+    .btn1Img6 {
+      transform: translateY(-6px);
+    }
+  }
+
+  // Hover effects for Button 2
+  .hoveredBtn2 {
+    transform: translateY(-8px);
+
+    .btn2Img1 {
+      transform: translateY(-10px) rotate(5deg);
+    }
+    .btn2Img2 {
+      transform: translateY(-8px) rotate(-5deg);
+    }
+    .btn2Img3 {
+      transform: translate(-5px, -5px);
+    }
+    .btn2Img4 {
+      transform: translate(5px, -5px) scale(1.05);
+    }
+    .btn2Img5 {
+      transform: translate(-5px, 5px) scale(1.05);
+    }
+    .btn2Img6 {
+      transform: translateY(-8px) rotate(3deg);
+    }
+  }
+
+  // Hover effects for Button 3
+  .hoveredBtn3 {
+    transform: translateY(-12px);
+
+    .btn3Img1 {
+      transform: translateY(-15px) scale(1.3);
+    }
+    .btn3Img2 {
+      transform: translateY(-10px) rotate(-10deg);
+    }
+    .btn3Img3 {
+      transform: translate(10px, -5px) rotate(10deg);
+    }
+    .btn3Img4 {
+      transform: translate(20px, -20px) scale(1.15) rotate(10deg);
+    }
+    .btn3Img5 {
+      transform: translate(-10px, -10px) scale(1.15);
+    }
+    .btn3Img6 {
+      transform: translate(-12px, -20px) rotate(-5deg) scale(1.2);
+    }
+  }
+}

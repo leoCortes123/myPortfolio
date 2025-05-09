@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles/MyJourney.module.scss';
 
 const experiences = [
@@ -86,42 +86,65 @@ const experiences = [
   }
 ];
 
-const MyJourney = () => {
+const InfoCard = ({ experience, isActive, onClick }) => {
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>MY JOURNEY</h1>
-        <p className={styles.subtitle}>RETRO TIMELINE</p>
-      </header>
-
-      <div className={styles.cardsContainer}>
-        {experiences.map((exp) => (
-          <div key={exp.id} className={styles.card}>
-            <div className={styles.cardBadge}>
-              {exp.company ? exp.company : 'INDEPENDIENTE'}
-            </div>
-            <div className={styles.cardInner}>
-              <div className={styles.cardDetails}>
-                <h2 className={styles.cardName}>{exp.title}</h2>
-                <p className={styles.cardPeriod}>{exp.period}</p>
-                <p className={styles.cardDescription}>{exp.description}</p>
-              </div>
-            </div>
-            <div className={styles.cardOverlay}>
-              {exp.details.map((detail, index) => (
-                <div key={index} className={styles.detail}>
-                  <span className={styles.detailIcon}>{detail.icon}</span>
-                  <span className={styles.detailText}>{detail.text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+    <div className={`${styles.card} ${isActive ? styles.active : ''}`}>
+      <div className={styles.cardHeader} onClick={onClick}>
+        <h3 className={styles.jobTitle}>{experience.title}</h3>
+        {experience.company && <p className={styles.company}>{experience.company}</p>}
+        <span className={styles.arrowIcon}>{isActive ? '🞁' : '🞃'}</span>
       </div>
 
-      <footer className={styles.footer}>
-        <p>© 2025 MY JOURNEY • RETRO STYLE</p>
-      </footer>
+      <div className={`${styles.cardContent} ${isActive ? styles.expandedContent : styles.collapsedContent}`}>
+        <div className={styles.contentBox}>
+          <p className={styles.period}>📅 {experience.period}</p>
+          <p className={styles.description}>{experience.description}</p>
+          <ul className={styles.detailsList}>
+            {experience.details.map((item, i) => (
+              <li key={i} className={styles.detailItem}>
+                <span className={styles.pixelIcon}>{item.icon}</span> {item.text}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MyJourney = () => {
+  const [activeCard, setActiveCard] = useState(null);
+
+  const handleCardClick = (id) => {
+    setActiveCard(activeCard === id ? null : id);
+  };
+
+  return (
+    <div className={styles.myJourneyMain}>
+      <h2 className={styles.sectionTitle}> MY JOURNEY </h2>
+      <div className={styles.timeLineContainer}>
+        {experiences.map((exp, index) => (
+          <div
+            className={`${styles[`item${index + 1}`]} ${activeCard === exp.id ? styles.activeItem : ''}`}
+            key={exp.id}
+          >
+            <InfoCard
+              experience={exp}
+              isActive={activeCard === exp.id}
+              onClick={() => handleCardClick(exp.id)}
+            />
+          </div>
+        ))}
+        <div className={styles.center}>
+          <div className={styles.pixelLine}></div>
+          {experiences.map((exp, index) => (
+            <div
+              key={exp.id}
+              className={`${styles.pixelDot} ${styles[`dot${index + 1}`]} ${activeCard === exp.id ? styles.activeDot : ''}`}
+            ></div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

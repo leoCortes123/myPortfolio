@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import aboutMe from '../../assets/images/aboutMeButton.png';
+import { useNavigate } from 'react-router-dom';
+import Nav from '../../components/Home/Nav.jsx';
 import BtnPxl from '../../utilities/BtnPxl.jsx';
 import PxlDiv from '../../utilities/PxlDiv.jsx';
 import styles from './styles/Home.module.scss';
 
 export default function Home({ canvasVisible, toggleCanvasVisibility }) {
   const [count, setCount] = useState(9);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (count > 0) {
@@ -17,17 +18,16 @@ export default function Home({ canvasVisible, toggleCanvasVisibility }) {
     }
   }, [count, canvasVisible, toggleCanvasVisibility]);
 
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.presentation}>
         <div className={styles.filter}>
-          <PxlDiv
-            size={5}
-            color="#fff"
-            bgColor="rgb(27,27,27,.7)"
-          >
-            <h1 className={styles.principalText}>
-              I'm Leonardo Cortes</h1>
+          <PxlDiv size={5} color="#fff" bgColor="rgb(27,27,27,.7)">
+            <h1 className={styles.principalText}>I'm Leonardo Cortes</h1>
             <p className={styles.p1}>FullStack web developer.</p>
           </PxlDiv>
         </div>
@@ -45,7 +45,7 @@ export default function Home({ canvasVisible, toggleCanvasVisibility }) {
               size={4}
               color="#333026"
               bgColor="#505474"
-              textColor='#f7bd38'
+              textColor="#f7bd38"
               onClick={toggleCanvasVisibility}
             >
               CONTINUE
@@ -56,23 +56,7 @@ export default function Home({ canvasVisible, toggleCanvasVisibility }) {
           </div>
         </div>
       ) : (
-        <div className={styles.nav}>
-          <div className={styles.link}>
-            <Link to="/about">
-              <img src={aboutMe} alt="About Me" />
-            </Link>
-          </div>
-          <div className={styles.link}>
-            <Link to="/myJourney">
-              <img src={aboutMe} alt="My Journey" />
-            </Link>
-          </div>
-          <div className={styles.link}>
-            <Link to="/contact">
-              <img src={aboutMe} alt="Contact" />
-            </Link>
-          </div>
-        </div>
+        <Nav onNavigate={handleNavigate} />
       )}
     </div>
   );

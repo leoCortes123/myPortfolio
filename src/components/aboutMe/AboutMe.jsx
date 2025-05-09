@@ -1,7 +1,7 @@
 // AboutMe.jsx
 import React from 'react';
+import TvRetro from '../../assets/images/svg/TvRetro.jsx';
 import PxlDiv from '../../utilities/PxlDiv.jsx';
-import Camera from './camera.jsx';
 import Carousel from './Carousel.jsx';
 import FloatingIcons from './floatingIcons.jsx';
 import styles from './styles/AboutMe.module.scss';
@@ -48,7 +48,7 @@ export default function AboutMe() {
             </p>
           </div>
           <div className={styles.Camera}>
-            <Camera />
+            <TvRetro />
           </div>
         </PxlDiv>
       </section>
