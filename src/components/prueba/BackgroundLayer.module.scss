@@ -1,0 +1,19 @@
+.backgroundLayer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 500vw; // ajusta al total de secciones
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500vw;
+  height: 100vh;
+  pointer-events: none;
+}

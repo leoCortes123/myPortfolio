@@ -1,144 +1,88 @@
-
-import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Arrow from '../../assets/images/icons/arrow.svg';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import styles from './styles/sliderImage.module.scss';
 
-const Slide = React.memo(function Slide({ image, positionClass }) {
-  return (
-    <div className={`${styles.carouselItem} ${styles[positionClass]}`}>
-      <img
-        src={image}
-        alt={`Slide`}
-        loading={positionClass === 'active' ? 'eager' : 'lazy'}
-        decoding={positionClass === 'active' ? 'auto' : 'async'}
-      />
-    </div>
-  );
-});
+const SliderImage = forwardRef(({ imageDirectory }, ref) => {
+  const [images, setImages] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [glitchEffect, setGlitchEffect] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const tvRef = useRef(null);
 
-export default function SliderImage() {
-  const [state, setState] = useState({
-    images: [],
-    currentIndex: 0,
-    transitionDirection: null,
-    isTransitioning: false
-  });
-
-  const stateRef = useRef(state);
-  useEffect(() => {
-    stateRef.current = state;
-  }, [state]);
+  useImperativeHandle(ref, () => ({
+    goToNext,
+    goToPrev,
+    toggleFullScreen
+  }));
 
   useEffect(() => {
-    const loadImages = async () => {
+    const importImages = async () => {
       try {
-        const imageModules = await Promise.all(
-          Object.values(import.meta.glob('../../assets/images/photograph/*.{jpg,jpeg,png,gif,webp,avif}')).map(
-            async (resolver) => (await resolver()).default
-          )
+        let imageModules;
+        if (imageDirectory === 'gifs') {
+          imageModules = import.meta.glob('../../assets/images/gifs/*.{jpg,jpeg,png,gif,webp}');
+        } else if (imageDirectory === 'photograph') {
+          imageModules = import.meta.glob('../../assets/images/photograph/*.{jpg,jpeg,png,gif,webp}');
+        } else {
+          console.warn('Directorio no válido:', imageDirectory);
+          return;
+        }
+
+        const imports = await Promise.all(
+          Object.values(imageModules).map(loader => loader())
         );
-        setState(prev => ({ ...prev, images: imageModules }));
+
+        const loadedImages = imports.map(mod => mod.default);
+        setImages(loadedImages);
+        setCurrentIndex(0);
       } catch (error) {
         console.error('Error loading images:', error);
       }
     };
 
-    loadImages();
-  }, []);
+    importImages();
+  }, [imageDirectory]);
 
-  const navigateSlide = useCallback((direction) => {
-    if (stateRef.current.isTransitioning || stateRef.current.images.length === 0) return;
+  const goToNext = () => {
+    if (images.length === 0) return;
+    triggerGlitch();
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
 
-    const newIndex = direction === 'next'
-      ? (stateRef.current.currentIndex + 1) % stateRef.current.images.length
-      : (stateRef.current.currentIndex - 1 + stateRef.current.images.length) % stateRef.current.images.length;
+  const goToPrev = () => {
+    if (images.length === 0) return;
+    triggerGlitch();
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  };
 
-    setState(prev => ({
-      ...prev,
-      isTransitioning: true,
-      transitionDirection: direction
-    }));
+  const toggleFullScreen = () => {
+    if (imageDirectory === 'photograph') {
+      setIsFullscreen(prev => !prev);
+      return images[currentIndex] || null;
+    }
+    return null;
+  };
 
-    setTimeout(() => {
-      setState(prev => ({
-        ...prev,
-        currentIndex: newIndex,
-        isTransitioning: false
-      }));
-    }, 100);
-  }, []);
+  const triggerGlitch = () => {
+    setGlitchEffect(true);
+    setTimeout(() => setGlitchEffect(false), 150);
+  };
 
-  const imageIndices = useMemo(() => {
-    if (state.images.length === 0) return [];
-    return [
-      (state.currentIndex - 1 + state.images.length) % state.images.length,
-      state.currentIndex,
-      (state.currentIndex + 1) % state.images.length
-    ];
-  }, [state.currentIndex, state.images.length]);
-
-  const positionClasses = useMemo(() => {
-
-    if (state.images.length === 0) return [];
-    return imageIndices.map(index => {
-      if (index === state.currentIndex) return 'active';
-      if (index === (state.currentIndex - 1 + state.images.length) % state.images.length) {
-        return state.transitionDirection === 'previous' ? 'previous-out' : 'previous-in';
-      }
-      if (index === (state.currentIndex + 1) % state.images.length) {
-        return state.transitionDirection === 'next' ? 'next-out' : 'next-in';
-      }
-      return 'hidden';
-    });
-  }, [state.currentIndex, state.images.length, state.transitionDirection, imageIndices]);
-
-  if (state.images.length === 0) {
-    return <div className={styles.loading}>Loading images...</div>;
+  if (images.length === 0) {
+    return <div className={styles.tv}>Cargando imágenes...</div>;
   }
 
   return (
-    <div className={styles.carouselContainer}>
-      <Slide
-        key={`slide-${imageIndices[0]}`}
-        image={state.images[imageIndices[0]]}
-        positionClass={positionClasses[0]}
+    <div
+      className={`${styles.tv} ${glitchEffect ? styles.glitch : ''} ${isFullscreen ? styles.fullscreen : ''}`}
+      ref={tvRef}
+    >
+      <img
+        src={images[currentIndex]}
+        alt={`Slide ${currentIndex + 1}`}
+        className={styles.image}
       />
-      <Slide
-        key={`slide-${imageIndices[1]}`}
-        image={state.images[imageIndices[1]]}
-        positionClass={positionClasses[1]}
-      />
-      <Slide
-        key={`slide-${imageIndices[2]}`}
-        image={state.images[imageIndices[2]]}
-        positionClass={positionClasses[2]}
-      />
-
-      <button
-        type='button'
-        onClick={() => navigateSlide('previous')}
-        disabled={state.isTransitioning}
-        aria-label="Previous image"
-        className={`${styles.btnSlider} ${styles.prev}`}
-      >
-        <img src={Arrow} alt="Previous" />
-      </button>
-
-      <button
-        type='button'
-        onClick={() => navigateSlide('next')}
-        disabled={state.isTransitioning}
-        aria-label="Next image"
-        className={`${styles.btnSlider} ${styles.next}`}
-      >
-        <img src={Arrow} alt="Next" className={styles.rotate} />
-      </button>
     </div>
   );
-}
+});
 
-Slide.propTypes = {
-  image: PropTypes.string.isRequired,
-  positionClass: PropTypes.string.isRequired,
-};
+export default SliderImage;

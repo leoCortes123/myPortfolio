@@ -1,0 +1,44 @@
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200vw;
+  height: 100%;
+  overflow: hidden;
+
+  img {
+    height: 100vh;
+    animation: moveLayer infinite;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+}
+
+@keyframes moveLayer {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100vw);
+  }
+}
+
+.layer1 img {
+  animation-duration: 100s;
+}
+
+.layer2 img {
+  animation-duration: 85s;
+}
+
+.layer3 img {
+  animation-duration: 70s;
+}
+
+.layer4 img {
+  animation-duration: 55s;
+}
+
+.layer5 img {
+  animation-duration: 40s;
+}

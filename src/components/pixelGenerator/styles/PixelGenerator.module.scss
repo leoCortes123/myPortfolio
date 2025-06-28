@@ -1,0 +1,40 @@
+.pixelGeneratorContainer {
+  max-width: 400px;
+  margin: auto;
+}
+
+.gradientCanvas {
+  height: auto;
+  width: auto;
+  max-width: 400px;
+  max-height: none;
+  box-shadow: 0 0 8px 0px black;
+  display: block;
+  margin: 0 auto 1em auto;
+}
+
+.gradientControls {
+  max-width: 400px;
+  margin-bottom: 1em;
+}
+
+.flexContainer {
+  display: flex;
+}
+
+.customControls {
+  & table td:first-child {
+    text-align: right;
+  }
+  & table td:last-child > * {
+    width: 70px;
+  }
+  & input[type="number"],
+  & input[type="color"] {
+    font-family: monospace;
+    font-size: 1.2em;
+  }
+  & input[type="submit"].generateButton {
+    float: right;
+  }
+}

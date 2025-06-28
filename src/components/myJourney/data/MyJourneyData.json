@@ -1,0 +1,177 @@
+[
+  {
+    "id": 1,
+    "company": "Freelance",
+    "time": "1 año - intermitente",
+    "stats": [
+      {
+        "label": "JavaScript",
+        "value": 70
+      },
+      {
+        "label": "HTML",
+        "value": 40
+      },
+      {
+        "label": "CSS",
+        "value": 20
+      }
+    ],
+    "mode": "MODALIDAD: DESARROLLADOR FREELANCE",
+    "img": "freelance.png",
+    "description": "Mantenimiento y mejora continua de una sección de una plataforma web. Encargado de realizar actualizaciones semanales y cambios en el contenido utilizando tecnologías modernas de desarrollo frontend y backend.",
+    "achievements": [
+      "Automatización de pequeñas tareas repetitivas en el frontend, mejorando la eficiencia en la actualización de contenido.",
+      "Aplicación de mejores prácticas en el uso de React y TypeScript para mejorar la mantenibilidad del código.",
+      "Establecimiento de una metodología de despliegue simple para cambios semanales sin interrupciones."
+    ]
+  },
+  {
+    "id": 2,
+    "company": "Soluciones de productividad",
+    "time": "Jun-2022 a Ene-2025",
+    "stats": [
+      {
+        "label": "Diagnósticos básicos",
+        "value": 60
+      },
+      {
+        "label": "Instalación de software",
+        "value": 20
+      },
+      {
+        "label": "Conectividad básica",
+        "value": 80
+      },
+      {
+        "label": "Soporte remoto",
+        "value": 50
+      }
+    ],
+    "mode": "MODALIDAD: SOPORTE DE NIVEL 1",
+    "img": "sp.png",
+    "description": "Atención a usuarios en tareas básicas de diagnóstico, soporte remoto, conectividad y mantenimiento de software.",
+    "achievements": [
+      "Reducción en un 30% del tiempo promedio de resolución de incidencias comunes.",
+      "Documentación de procedimientos para mejorar la atención en soporte remoto.",
+      "Colaboración en la implementación de herramientas de monitoreo para agilizar la detección de fallos frecuentes."
+    ]
+  },
+  {
+    "id": 3,
+    "company": "IqOutsourcing",
+    "time": "Ago-2018 a Ene-2020",
+    "stats": [
+      {
+        "label": "C# - .Net",
+        "value": 60
+      },
+      {
+        "label": "JavaScript",
+        "value": 30
+      },
+      {
+        "label": "SQL Server",
+        "value": 40
+      }
+    ],
+    "mode": "MODALIDAD: ANALISTA DE DESARROLLO",
+    "img": "iq.png",
+    "description": "Desarrollo y mantenimiento de software enfocado en la gestión de medicamentos en IPS. Trabajo colaborativo con el equipo de soporte para implementar mejoras y correcciones en el sistema.",
+    "achievements": [
+      "Desarrollé nuevas funcionalidades críticas para la gestión de inventario de medicamentos.",
+      "Implementé mejoras en procedimientos almacenados, optimizando tiempos de respuesta en consultas frecuentes.",
+      "Participación activa en migraciones de base de datos y actualizaciones tecnológicas de la aplicación."
+    ]
+  },
+  {
+    "id": 4,
+    "company": "Score Projects S.A.S",
+    "time": "Ene-2017 a Ene-2018",
+    "stats": [
+      {
+        "label": "C# - .Net Framework",
+        "value": 60
+      },
+      {
+        "label": "AngularJS",
+        "value": 40
+      },
+      {
+        "label": "SQL Server",
+        "value": 30
+      }
+    ],
+    "mode": "MODALIDAD: ANALISTA DE DESARROLLO",
+    "img": "scoreprojects.png",
+    "description": "Participación en el mantenimiento y evolución de una plataforma para la gestión de teatros y eventos. Colaboración en el desarrollo de APIs RESTful y ajustes en la base de datos según requerimientos del cliente.",
+    "achievements": [
+      "Modernización del frontend de la plataforma usando AngularJS.",
+      "Diseño de endpoints eficientes que redujeron el tiempo de carga en un 20%.",
+      "Colaboración activa en la planificación de nuevas funcionalidades con enfoque UX."
+    ]
+  },
+  {
+    "id": 5,
+    "company": "NovaCorp S.A.S",
+    "time": "Ene-2017 a Ene-2018",
+    "stats": [
+      {
+        "label": "C# - .Net Framework",
+        "value": 60
+      },
+      {
+        "label": "AngularJS",
+        "value": 40
+      },
+      {
+        "label": "SQL Server",
+        "value": 30
+      }
+    ],
+    "mode": "MODALIDAD: ANALISTA DE DESARROLLO",
+    "img": "nova.png",
+    "description": "Apoyo en la modernización y migración de un sistema ERP hacia tecnologías web. Desarrollo de nuevas funcionalidades con enfoque modular y capacitación de personal en uso del sistema.",
+    "achievements": [
+      "Migración exitosa de módulos clave del ERP a una plataforma web.",
+      "Uso de Razor y Bootstrap para ofrecer una experiencia de usuario más moderna.",
+      "Mentoría a aprendices del SENA, facilitando su integración al equipo y su aprendizaje en tecnologías empresariales."
+    ]
+  },
+  {
+    "id": 6,
+    "company": "SENA & UNIPANAMERICANA",
+    "time": "",
+    "stats": [
+      {
+        "label": "POO",
+        "value": 80
+      },
+      {
+        "label": "Bases de datos",
+        "value": 50
+      },
+      {
+        "label": "Documentación técnica",
+        "value": 60
+      },
+      {
+        "label": "Levantamiento de información",
+        "value": 60
+      },
+      {
+        "label": "Desarrollo web",
+        "value": 30
+      }
+    ],
+    "mode": "MODALIDAD: FORMACIÓN PROFESIONAL",
+    "img": "estudios.png",
+    "description": "Durante mi proceso formativo adquirí una sólida base en el desarrollo de software, metodologías de análisis y diseño de sistemas, bases de datos, lógica de programación, arquitectura de software, y gestión de proyectos tecnológicos. Esta formación integral me permitió desarrollar tanto habilidades técnicas como una visión estratégica para la solución de problemas tecnológicos en distintos entornos empresariales.",
+    "achievements": [
+      "Análisis y modelado de sistemas de información",
+      "Lógica y estructuras de programación.",
+      "Pensamiento lógico y resolución de problemas.",
+      "Desarrollo de aplicaciones web y de escritorio."
+    ]
+  }
+]

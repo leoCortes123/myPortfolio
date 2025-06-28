@@ -1,137 +1,235 @@
-// Contact.module.scss
 .contactContainer {
-  width: 70%;
-  margin: 5rem auto;
-  padding: 2rem;
-  border: 3px solid #d4a017;
-  background-color: rgba(40, 40, 40, 0.8);
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  gap: 2rem;
+}
+
+.contactAnimation {
+  width: 50%;
+  height: 25%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
+}
+
+.earth,
+.pc {
+  height: 100%;
+  width: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+}
+
+.Animation {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 40%;
+
+  img {
+    position: absolute;
+    height: 50%;
+    width: auto;
+    object-fit: contain;
+    animation: letterAnimation 5s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+  }
+
+  .letter1 {
+    animation-delay: 0s;
+  }
+
+  .letter2 {
+    animation-delay: 1s;
+  }
+}
+
+@keyframes letterAnimation {
+  0% {
+    left: 100%;
+  }
+  50% {
+    left: 0%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.contact {
+  width: 70%;
+  height: 100%;
+  padding-bottom: 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 2rem 0;
 }
 
 .title {
   color: #d4a017;
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.8rem;
-  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: 0.1rem;
 
   span {
     animation: blink 1s step-end infinite;
   }
 }
+
 .subtitle {
   color: #d4a017;
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 0.9rem;
-  text-shadow: 2px 2px 0 #5a3a00;
+  margin-bottom: 1.5rem;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  text-shadow: 0.1rem 0.1rem 0 #5a3a00;
 }
 
 .contactForm {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 0.5rem;
+  height: 100%;
+  justify-content: center;
+  background-image: url("../../../assets/images/myJourney/bgPixel1.png");
+  background-size: contain;
+  padding: 0 1rem;
 }
 
-.doubleField {
+.imputContainer {
   display: flex;
-  gap: 15px;
-  width: 100%;
-
-  .formGroup {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
+  flex-flow: row wrap;
+  justify-content: end;
+  align-items: center;
 }
 
-.formGroup {
+.formLabel {
   display: flex;
-  flex-direction: column;
-
-  &.active {
-    .label {
-      color: #ffc32d;
-    }
-
-    .input,
-    .textarea {
-      border-color: #ffc32d;
-    }
-  }
-}
-
-.label {
+  align-items: center;
   color: #d4a017;
-  font-size: 0.9rem;
-  margin-bottom: 5px;
+  width: 20%;
+  font-size: 1.2rem;
+  margin-bottom: 0.1rem;
+  margin-top: 0.5rem;
+  padding-left: 0.1rem;
+  min-height: 1.8em;
+  align-self: flex-start;
 }
 
-.input,
-.textarea {
-  padding: 10px;
-  border: 2px solid #8b5a00;
-  background-color: rgba(20, 20, 20, 0.8);
+.formInput,
+.formTextarea {
+  width: 80%;
+  box-sizing: border-box;
+  padding: 0.2rem 0.5rem;
+  border: 0.15rem solid #8b5a00;
+  background-color: rgba(20, 20, 20);
   color: #ffc32d;
-  font-size: 1rem;
+  font-size: 0.8rem;
 
-  &:focus {
-    outline: none;
-    border-color: #ffc32d;
-  }
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  min-height: 2.5em;
+  margin-bottom: 0;
+  align-self: flex-end;
+  font-family: inherit;
+}
+.formTextarea {
+  min-height: 8rem;
+  resize: vertical;
+  font-family: inherit;
 }
 
-.textarea {
-  min-height: 120px;
-  resize: vertical;
+.formInput:focus,
+.formTextarea:focus,
+.active.formInput,
+.active.formTextarea {
+  outline: none;
+  border-color: #ffc32d;
+  box-shadow: 0 0 0.5rem rgba(255, 195, 45, 0.3);
+}
+
+.inputError {
+  border-color: #ff6b6b !important;
+}
+
+.errorMessage {
+  color: #ff6b6b;
+  background: transparent;
+  font-size: 0.85rem;
+  min-height: 1.2em;
+  margin: 0 0 0.2em 0.1em;
+  padding: 0;
+  display: block;
+  line-height: 1.1;
+  pointer-events: none;
+  visibility: visible;
+  height: 1rem;
+  width: 80%;
+}
+
+.errorMessage:empty {
+  visibility: hidden;
+  height: 1.2em;
 }
 
 .buttonContainer {
-  margin-top: 10px;
+  margin-top: 1rem;
 }
 
 .submitButton {
-  padding: 12px;
+  padding: 0.8rem;
   width: 100%;
   background-color: #8b5a00;
   color: #ffc32d;
   border: none;
+  border-radius: 0.3rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s;
-
-  &:hover {
-    background-color: #d4a017;
-    color: #5a3a00;
-  }
-
-  &:active {
-    transform: translateY(1px);
-  }
-
-  &:disabled {
-    background-color: #5a5a5a;
-    color: #d4a017;
-    cursor: not-allowed;
-  }
+  font-size: 1rem;
+}
+.submitButton:hover {
+  background-color: #d4a017;
+  color: #5a3a00;
+}
+.submitButton:active {
+  transform: translateY(0.1rem);
+}
+.submitButton:disabled {
+  background-color: #5a5a5a;
+  color: #d4a017;
+  cursor: not-allowed;
 }
 
 .successMessage,
-.errorMessage {
-  padding: 10px;
+.errorMessage:not(.errorMessage) {
+  padding: 0.6rem;
   text-align: center;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 1rem;
+  border-radius: 0.3rem;
 }
 
 .successMessage {
   color: #ffc32d;
   background-color: rgba(90, 58, 0, 0.3);
-}
-
-.errorMessage {
-  color: #ff6b6b;
-  background-color: rgba(90, 0, 0, 0.3);
 }
 
 @keyframes blink {

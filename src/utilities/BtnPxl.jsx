@@ -7,6 +7,8 @@ export default function BtnPxl({
   color = '#000000',
   bgColor = 'transparent',
   textColor = '#000000',
+  shadowColor,          // Nuevo prop
+  fontSize,             // Nuevo prop
   children,
   className,
   style,
@@ -22,7 +24,6 @@ export default function BtnPxl({
     svgHeight: 0
   });
 
-  // Efecto para observar cambios de tamaño
   useEffect(() => {
     const observer = new ResizeObserver((entries) => {
       entries.forEach(entry => {
@@ -45,14 +46,12 @@ export default function BtnPxl({
     return () => observer.disconnect();
   }, [cornerSize]);
 
-  // Genera los rectángulos del borde pixelado
   const generateRectangles = useCallback(() => {
     const s = size;
     const w = dimensions.svgWidth;
     const h = dimensions.svgHeight;
 
     return [
-      // Bordes principales
       { x: cornerSize, y: 0, width: w, height: s }, // Top
       { x: cornerSize, y: h + cornerSize * 2 - s, width: w, height: s }, // Bottom
       { x: 0, y: cornerSize, width: s, height: h }, // Left
@@ -80,7 +79,6 @@ export default function BtnPxl({
     ];
   }, [dimensions, size, cornerSize]);
 
-  // Genera el path interno
   const generateInternalPath = useCallback(() => {
     const s = size;
     const w = dimensions.svgWidth;
@@ -89,23 +87,36 @@ export default function BtnPxl({
     if (w <= 0 || h <= 0) return '';
 
     return [
-
-      `M${cornerSize},0`,       // Start at top-left corner (after corner)
-      `h${w}`,                   // Draw top border
-      `v${s}`, `h${2 * s}`, `v${s}`, `h${s}`, `v${s}`, `h${s}`, `v${2 * s}`, `h${s}`, // Top-right corner
-      `v${h}`,                   // Draw right border
-      `h${-s}`, `v${s * 2}`, `h${-s}`, `v${s}`, `h${-s}`, `v${s}`, `h${-s * 2}`, `v${s}`, // Bottom-right corner
-      `h${-w}`,                  // Draw bottom border
-      `v${-s}`, `h${-2 * s}`, `v${-s}`, `h${-s}`, `v${-s}`, `h${-s}`, `v${-2 * s}`, `h${-s}`, // Bottom-left corner
-      `v${-h}`,                  // Draw left border
-      `h${s}`, `v${-s * 2}`, `h${s}`, `v${-s}`, `h${s}`, `v${-s}`, `h${s * 2}`, `v${-s}` // Top-left corner
-
+      `M${cornerSize},0`,
+      `h${w}`,
+      `v${s}`, `h${2 * s}`, `v${s}`, `h${s}`, `v${s}`, `h${s}`, `v${2 * s}`, `h${s}`,
+      `v${h}`,
+      `h${-s}`, `v${s * 2}`, `h${-s}`, `v${s}`, `h${-s}`, `v${s}`, `h${-s * 2}`, `v${s}`,
+      `h${-w}`,
+      `v${-s}`, `h${-2 * s}`, `v${-s}`, `h${-s}`, `v${-s}`, `h${-s}`, `v${-2 * s}`, `h${-s}`,
+      `v${-h}`,
+      `h${s}`, `v${-s * 2}`, `h${s}`, `v${-s}`, `h${s}`, `v${-s}`, `h${s * 2}`, `v${-s}`
     ].join(' ');
   }, [dimensions, size, cornerSize]);
 
   const rectangles = useMemo(generateRectangles, [generateRectangles]);
   const internalPath = useMemo(generateInternalPath, [generateInternalPath]);
   const svgClassNames = [styles.svgContainer, className].filter(Boolean).join(' ');
+
+  // Valores por defecto del SCSS:
+  const defaultShadowColor = '#f4423c';
+  const defaultFontSize = '2rem';
+
+  // Construimos el textShadow en base al color enviado
+  const finalShadowColor = shadowColor || defaultShadowColor;
+  const spanTextShadow = `
+    3px 3px 0 ${finalShadowColor},
+    3px 0px 0 ${finalShadowColor},
+    -1px -1px 0 ${finalShadowColor},
+    1px -1px 0 ${finalShadowColor},
+    -1px 1px 0 ${finalShadowColor}
+  `;
+  const spanFontSize = fontSize || defaultFontSize;
 
   return (
     <svg
@@ -136,7 +147,14 @@ export default function BtnPxl({
           ref={childDivRef}
           style={{ color: textColor }}
         >
-          <span>{children}</span>
+          <span
+            style={{
+              fontSize: spanFontSize,
+              textShadow: spanTextShadow,
+            }}
+          >
+            {children}
+          </span>
         </div>
       </foreignObject>
 
@@ -152,10 +170,6 @@ export default function BtnPxl({
           />
         ))}
       </g>
-
-
-
-
     </svg>
   );
 }
@@ -164,6 +178,8 @@ BtnPxl.propTypes = {
   color: PropTypes.string,
   bgColor: PropTypes.string,
   textColor: PropTypes.string,
+  shadowColor: PropTypes.string, // Nuevo prop
+  fontSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // Nuevo prop
   size: PropTypes.number,
   children: PropTypes.node,
   className: PropTypes.string,

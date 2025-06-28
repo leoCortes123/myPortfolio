@@ -1,0 +1,39 @@
+.btnCtrl {
+  transition: transform 0.3s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+  fill: #222034;
+  animation: btns 1.5s ease-in-out infinite;
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0.5, 0.5));
+
+  &:hover {
+    cursor: pointer;
+    fill: #861e1e;
+    animation: none;
+    transform: scale(1.2);
+  }
+  &:active {
+    fill: #7f5a5a;
+  }
+}
+
+@keyframes btns {
+  0%,
+  42.86% {
+    transform: scale(1);
+  }
+  21.43% {
+    transform: scale(1.1);
+  }
+  42.87% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.TvRetroContainer {
+  width: 100%;
+  height: 100%;
+}

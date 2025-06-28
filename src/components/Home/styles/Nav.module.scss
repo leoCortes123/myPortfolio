@@ -1,11 +1,12 @@
 .nav {
-  width: 90%;
-  height: 40%;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
   align-items: center;
   font-family: "pixelFont2", sans-serif;
+  padding: 1vh 1vw;
 
   .innerButton,
   .innerButton2,
@@ -17,10 +18,12 @@
     flex: 1;
     width: 100%;
     height: 100%;
-    transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease;
+    max-width: 30vw;
+    min-width: 200px;
+    animation: scale-up-bottom 0.4s ease-out forwards;
     pointer-events: none;
+    margin: 0 1vw;
+    position: relative;
 
     .content,
     .title {
@@ -32,7 +35,7 @@
       justify-content: center;
       align-items: center;
       height: 20%;
-      width: 60%;
+      width: 80%;
       padding: 1.5em 0;
       border-bottom-left-radius: 1.5em;
       border-bottom-right-radius: 1.5em;
@@ -40,8 +43,9 @@
       text-shadow:
         1px 1px 0 #000,
         -1px -1px 0 #000;
-      border: 2px solid #000;
-
+      border: 0.2em solid #000;
+      font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+      text-align: center;
       transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
@@ -50,22 +54,40 @@
     .content {
       position: relative;
       height: 80%;
-      width: 60%;
+      width: 80%;
+      aspect-ratio: 1/1;
       background-color: transparent;
+      margin-bottom: 1vh;
 
       .base {
         position: absolute;
         bottom: 0;
         height: 20%;
         width: 100%;
-        clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 10%, 0 90%, 100% 100%, 100% 0);
         background: linear-gradient(to top, #000, #949494);
       }
 
       img {
         position: absolute;
         transition: transform 0.3s ease;
+        max-width: 100%;
+        height: auto;
       }
+    }
+  }
+
+  @keyframes scale-up-bottom {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    80% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
     }
   }
 
@@ -74,74 +96,72 @@
     .title {
       background-color: #202775;
       box-shadow: inset 0 0 0 2px #5f649e;
-      color: #fff;
-      border: 2px solid #000;
     }
     .img1 {
-      width: 40%;
+      width: 40% !important;
       right: 10%;
       bottom: 3%;
     }
     .img2 {
-      width: 30%;
+      width: 30% !important;
       left: 30%;
       bottom: 0%;
     }
     .img3 {
-      width: 45%;
+      width: 45% !important;
       right: 5%;
       bottom: 0%;
     }
     .img4 {
-      width: 40%;
+      width: 40% !important;
       right: 0%;
       bottom: 7%;
     }
     .img5 {
-      width: 50%;
+      width: 50% !important;
       left: 10%;
       bottom: 5%;
     }
     .img6 {
-      width: 45%;
+      width: 45% !important;
       left: 0;
       bottom: 4%;
     }
   }
 
   .innerButton2 {
-    margin-bottom: 3rem;
+    margin-bottom: 3vh;
     .title {
       background-color: #851d1d;
       box-shadow: inset 0 0 0 2px #d62f2f;
     }
     .img1 {
-      width: 60%;
+      width: 60% !important;
       right: 0%;
       bottom: 0%;
     }
     .img2 {
-      width: 30%;
+      width: 30% !important;
       left: 20%;
       bottom: 0%;
     }
     .img3 {
-      width: 35%;
+      width: 35% !important;
       right: 30%;
       bottom: 0%;
     }
     .img4 {
-      width: 30%;
+      width: 30% !important;
       right: 5%;
       bottom: 0%;
     }
     .img5 {
-      width: 70%;
+      width: 70% !important;
       left: 0%;
       bottom: 10%;
     }
     .img6 {
-      width: 35%;
+      width: 35% !important;
       left: 0%;
       bottom: 5%;
     }
@@ -152,36 +172,34 @@
     .title {
       background-color: #0c571b;
       box-shadow: inset 0 0 0 2px #15982f;
-      color: #fff;
-      border: 2px solid #000;
     }
     .img1 {
-      width: 40%;
+      width: 40% !important;
       left: 40%;
       bottom: 3%;
     }
     .img2 {
-      width: 30%;
+      width: 30% !important;
       left: 0%;
       bottom: 0%;
     }
     .img3 {
-      width: 45%;
+      width: 45% !important;
       right: 5%;
       bottom: 0%;
     }
     .img4 {
-      width: 65%;
+      width: 65% !important;
       right: 0%;
       bottom: 5%;
     }
     .img5 {
-      width: 35%;
+      width: 35% !important;
       left: 20%;
       bottom: 0%;
     }
     .img6 {
-      width: 50%;
+      width: 50% !important;
       left: 0;
       bottom: 10%;
     }
@@ -256,6 +274,23 @@
     }
     .btn3Img6 {
       transform: translate(-12px, -20px) rotate(-5deg) scale(1.2);
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 2vh 0;
+
+    .innerButton,
+    .innerButton2,
+    .innerButton3 {
+      max-width: 80vw;
+      margin: 2vh 0;
+      scale: 1;
+
+      .title {
+        font-size: clamp(1rem, 4vw, 1.5rem);
+      }
     }
   }
 }

@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import Earth from '../../assets/images/contactMe/earth.gif';
+import letter1 from '../../assets/images/contactMe/letter1.png';
+import letter2 from '../../assets/images/contactMe/letter2.png';
+import PCPixel from '../../assets/images/contactMe/PCPixel.gif';
 import styles from './styles/Contact.module.scss';
 
 export default function Contact() {
@@ -26,7 +30,6 @@ export default function Contact() {
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    // Validar el formulario cada vez que cambien los datos o los errores
     const isValid = !Object.values(errors).some(error => error) &&
       Object.values(formData).every(field => field.trim() || field === formData.phone);
     setIsFormValid(isValid);
@@ -34,7 +37,6 @@ export default function Contact() {
 
   const validateField = (name, value) => {
     let error = '';
-
     switch (name) {
       case 'name':
         if (!value.trim()) {
@@ -53,8 +55,8 @@ export default function Contact() {
         }
         break;
       case 'phone':
-        if (value && !/^[0-9+\-\s]+$/.test(value)) {
-          error = 'Ingresa un teléfono válido';
+        if (value && (!/^[0-9+\-\s]+$/.test(value) || value.replace(/\D/g, '').length < 7)) {
+          error = 'Ingresa un teléfono válido (mínimo 7 dígitos)';
         }
         break;
       case 'message':
@@ -67,7 +69,6 @@ export default function Contact() {
       default:
         break;
     }
-
     return error;
   };
 
@@ -77,8 +78,6 @@ export default function Contact() {
       ...prev,
       [name]: value
     }));
-
-    // Validar solo si el campo ha sido tocado
     if (touched[name]) {
       const error = validateField(name, value);
       setErrors(prev => ({
@@ -93,14 +92,11 @@ export default function Contact() {
       ...prev,
       [fieldName]: true
     }));
-
-    // Validar el campo cuando pierde el foco
     const error = validateField(fieldName, formData[fieldName]);
     setErrors(prev => ({
       ...prev,
       [fieldName]: error
     }));
-
     setActiveInput(null);
   };
 
@@ -110,24 +106,15 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validar todos los campos antes de enviar
     const newErrors = {};
     Object.keys(formData).forEach(key => {
-      if (key !== 'phone' || formData[key]) { // El teléfono es opcional
+      if (key !== 'phone' || formData[key]) {
         newErrors[key] = validateField(key, formData[key]);
       }
     });
 
     setErrors(newErrors);
-    setTouched({
-      name: true,
-      email: true,
-      phone: true,
-      message: true
-    });
-
-    // Verificar si hay errores
+    setTouched({ name: true, email: true, phone: true, message: true });
     const hasErrors = Object.values(newErrors).some(error => error);
     if (hasErrors) return;
 
@@ -135,7 +122,7 @@ export default function Contact() {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch('https://formspree.io/f/leocortes3567@gmail.com', {
+      const response = await fetch('https://formspree.io/f/yourFormId', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -146,12 +133,8 @@ export default function Contact() {
       if (response.ok) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', phone: '', message: '' });
-        setTouched({
-          name: false,
-          email: false,
-          phone: false,
-          message: false
-        });
+        setErrors({ name: '', email: '', phone: '', message: '' });
+        setTouched({ name: false, email: false, phone: false, message: false });
       } else {
         setSubmitStatus('error');
       }
@@ -164,98 +147,80 @@ export default function Contact() {
 
   return (
     <div className={styles.contactContainer}>
-      <h2 className={styles.title}>CONTACT<span>_</span></h2>
-      <div className={styles.subtitle}>¡HABLEMOS! ENVÍAME UN MENSAJE</div>
-
-      <form onSubmit={handleSubmit} className={styles.contactForm} noValidate>
-        <div className={`${styles.formGroup} ${activeInput === 'name' ? styles.active : ''} ${touched.name && errors.name ? styles.error : ''}`}>
-          <label htmlFor="name" className={styles.label}>NOMBRE:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            onFocus={() => handleFocus('name')}
-            onBlur={() => handleBlur('name')}
-            required
-            className={styles.input}
-          />
-          {touched.name && errors.name && <span className={styles.errorMessage}>{errors.name}</span>}
+      <div className={styles.contactAnimation}>
+        <div className={styles.Animation}>
+          <img src={letter1} alt="letter1" className={styles.letter1} />
+          <img src={letter2} alt="letter2" className={styles.letter2} />
         </div>
+        <div className={styles.earth}><img src={Earth} alt="Earth" /></div>
+        <div className={styles.pc}><img src={PCPixel} alt="Pc Pixel art" /></div>
+      </div>
 
-        <div className={styles.doubleField}>
-          <div className={`${styles.formGroup} ${activeInput === 'email' ? styles.active : ''} ${touched.email && errors.email ? styles.error : ''}`}>
-            <label htmlFor="email" className={styles.label}>EMAIL:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              onFocus={() => handleFocus('email')}
-              onBlur={() => handleBlur('email')}
-              required
-              className={styles.input}
-            />
-            {touched.email && errors.email && <span className={styles.errorMessage}>{errors.email}</span>}
+      <div className={styles.contact}>
+        <h2 className={styles.title}>CONTACT<span>_</span></h2>
+        <div className={styles.subtitle}>¡HABLEMOS! ENVÍAME UN MENSAJE</div>
+
+        <form onSubmit={handleSubmit} className={styles.contactForm} noValidate>
+          {['name', 'email', 'phone', 'message'].map((field) => (
+            <div key={field} className={styles.imputContainer}>
+              <label htmlFor={field} className={styles.formLabel}>
+                {field.toUpperCase()}:
+              </label>
+              {field === 'message' ? (
+                <textarea
+                  id={field}
+                  name={field}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  onFocus={() => handleFocus(field)}
+                  onBlur={() => handleBlur(field)}
+                  required={field !== 'phone'}
+                  className={`${styles.formTextarea} ${activeInput === field ? styles.active : ''} ${touched[field] && errors[field] ? styles.inputError : ''}`}
+                  aria-invalid={touched[field] && errors[field] ? 'true' : 'false'}
+                  aria-describedby={`${field}-error`}
+                />
+              ) : (
+                <input
+                  type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
+                  id={field}
+                  name={field}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  onFocus={() => handleFocus(field)}
+                  onBlur={() => handleBlur(field)}
+                  required={field !== 'phone'}
+                  placeholder={field === 'phone' ? 'Opcional' : ''}
+                  className={`${styles.formInput} ${activeInput === field ? styles.active : ''} ${touched[field] && errors[field] ? styles.inputError : ''}`}
+                  aria-invalid={touched[field] && errors[field] ? 'true' : 'false'}
+                  aria-describedby={`${field}-error`}
+                />
+              )}
+              <span id={`${field}-error`} className={styles.errorMessage} aria-live="polite">
+                {touched[field] && errors[field] ? errors[field] : '\u00A0'}
+              </span>
+            </div>
+          ))}
+
+          <div className={styles.buttonContainer}>
+            <button
+              type="submit"
+              disabled={isSubmitting || !isFormValid}
+              className={styles.submitButton}
+            >
+              <span className={styles.buttonText}>
+                {isSubmitting ? 'ENVIANDO...' : 'ENVIAR'}
+              </span>
+            </button>
           </div>
 
-          <div className={`${styles.formGroup} ${activeInput === 'phone' ? styles.active : ''} ${touched.phone && errors.phone ? styles.error : ''}`}>
-            <label htmlFor="phone" className={styles.label}>TELÉFONO:</label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              onFocus={() => handleFocus('phone')}
-              onBlur={() => handleBlur('phone')}
-              className={styles.input}
-              placeholder="Opcional"
-            />
-            {touched.phone && errors.phone && <span className={styles.errorMessage}>{errors.phone}</span>}
-          </div>
-        </div>
-
-        <div className={`${styles.formGroup} ${activeInput === 'message' ? styles.active : ''} ${touched.message && errors.message ? styles.error : ''}`}>
-          <label htmlFor="message" className={styles.label}>MENSAJE:</label>
-          <textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            onFocus={() => handleFocus('message')}
-            onBlur={() => handleBlur('message')}
-            required
-            className={styles.textarea}
-          />
-          {touched.message && errors.message && <span className={styles.errorMessage}>{errors.message}</span>}
-        </div>
-
-        <div className={styles.buttonContainer}>
-          <button
-            type="submit"
-            disabled={isSubmitting || !isFormValid}
-            className={styles.submitButton}
-          >
-            <span className={styles.buttonText}>
-              {isSubmitting ? 'ENVIANDO...' : 'ENVIAR'}
-            </span>
-          </button>
-        </div>
-
-        {submitStatus === 'success' && (
-          <div className={styles.successMessage}>
-            ✓ MENSAJE ENVIADO
-          </div>
-        )}
-        {submitStatus === 'error' && (
-          <div className={styles.errorMessage}>
-            ✗ ERROR AL ENVIAR
-          </div>
-        )}
-      </form>
+          {submitStatus === 'success' && (
+            <div className={styles.successMessage}>✓ MENSAJE ENVIADO</div>
+          )}
+          {submitStatus === 'error' && (
+            <div className={styles.errorMessage}>✗ ERROR AL ENVIAR</div>
+          )}
+        </form>
+      </div>
     </div>
   );
-};
+}

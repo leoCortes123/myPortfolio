@@ -1,0 +1,26 @@
+.tetrisContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.tetromino {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 80px;
+  height: 80px;
+  transition: top ease;
+}
+
+.block {
+  width: 20px;
+  height: 20px;
+  background-color: currentColor;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
