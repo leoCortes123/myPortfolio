@@ -147,18 +147,11 @@ export default function Contact() {
 
   return (
     <div className={styles.contactContainer}>
-      <div className={styles.contactAnimation}>
-        <div className={styles.Animation}>
-          <img src={letter1} alt="letter1" className={styles.letter1} />
-          <img src={letter2} alt="letter2" className={styles.letter2} />
-        </div>
-        <div className={styles.earth}><img src={Earth} alt="Earth" /></div>
-        <div className={styles.pc}><img src={PCPixel} alt="Pc Pixel art" /></div>
-      </div>
+
 
       <div className={styles.contact}>
-        <h2 className={styles.title}>CONTACT<span>_</span></h2>
-        <div className={styles.subtitle}>¡HABLEMOS! ENVÍAME UN MENSAJE</div>
+        <h2 className={styles.title}>CONTACTAME<span>_</span></h2>
+        <div className={styles.subtitle}>ENVÍAME UN MENSAJE</div>
 
         <form onSubmit={handleSubmit} className={styles.contactForm} noValidate>
           {['name', 'email', 'phone', 'message'].map((field) => (
@@ -220,6 +213,14 @@ export default function Contact() {
             <div className={styles.errorMessage}>✗ ERROR AL ENVIAR</div>
           )}
         </form>
+      </div>
+      <div className={styles.contactAnimation}>
+        <div className={styles.Animation}>
+          <img src={letter1} alt="letter1" className={styles.letter1} />
+          <img src={letter2} alt="letter2" className={styles.letter2} />
+        </div>
+        <div className={styles.earth}><img src={Earth} alt="Earth" /></div>
+        <div className={styles.pc}><img src={PCPixel} alt="Pc Pixel art" /></div>
       </div>
     </div>
   );

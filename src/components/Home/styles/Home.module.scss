@@ -21,25 +21,16 @@ $bubble-border:
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
-	align-items: center;
-	width: 80%;
+	align-items: start;
+	width: 90%;
 	height: 100%;
-
-	.presentationContainer {
-		width: 60vw;
-		height: 100vh;
-		display: flex;
-		flex-flow: column nowrap;
-		justify-content: space-between;
-		align-items: center;
-	}
 
 	.presentation {
 		display: flex;
 		flex-flow: column nowrap;
 		justify-content: center;
-		align-items: center;
-		width: 100%;
+		align-items: start;
+		height: 60%;
 		flex: 1;
 		padding-top: 10vh;
 		text-align: center;
@@ -50,7 +41,7 @@ $bubble-border:
 			letter-spacing: 2px;
 			font-family: "pixelFont3", sans-serif;
 			color: #f7bd38;
-			padding: 2rem 0;
+			padding: 2rem 0 0 0;
 			filter: drop-shadow(1px 1px 8px rgb(114, 115, 151));
 
 			text-shadow:
@@ -181,10 +172,10 @@ $bubble-border:
 .animation {
 	display: flex;
 	flex-flow: column nowrap;
-	justify-content: center;
+	justify-content: end;
 	align-items: center;
 	flex: 2;
-	width: 80%;
+	width: 60%;
 
 	.bubbleContainer {
 		display: flex;
@@ -264,7 +255,6 @@ $bubble-border:
 				-2 * $px 0 $BDBubble,
 				-3 * $px 0 $BDBubble;
 		}
-
 		&.right::after {
 			height: $px;
 			width: $px;
@@ -286,11 +276,12 @@ $bubble-border:
 				0 -1 * $px $BDBubble;
 		}
 
+		// arrow spetch
 		&.bottom::after {
 			height: $px;
 			width: $px;
 			bottom: -2 * $px;
-			right: 20 * $px;
+			right: 100 * $px;
 			box-shadow:
 				0 $px $black,
 				0 2 * $px $black,
@@ -345,7 +336,7 @@ $bubble-border:
 			height: 100%;
 		}
 		img {
-			width: 30%;
+			width: 40%;
 			height: auto;
 			object-fit: cover;
 			filter: drop-shadow(0 0 5px #d3d3d3);
