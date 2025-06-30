@@ -1,7 +1,7 @@
 import React, { lazy, useEffect, useRef, useState } from 'react';
 import arrowIcon from './assets/images/icons/arrowIcon.gif';
 import HomeImg from './assets/images/icons/homeImages/home.png';
-import scrollGif from './assets/images/icons/scrollicon.gif';
+import scrollGif from './assets/images/icons/scrollIcon.gif';
 import Cursor from './components/Cursor/Cursor.jsx';
 import BackgroundLayer from './components/prueba/BackgroundLayer.jsx';
 import styles from './styles/App.module.scss';
