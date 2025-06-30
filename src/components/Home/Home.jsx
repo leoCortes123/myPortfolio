@@ -17,11 +17,11 @@ export default function Home({ getNavValue }) {
               Creando soluciones a la medida .
             </p>
             <p>
-              ¡Rompiendo cosas (y arreglándolas) desde 2013!
+              ¡Rompiendo cosas (y reparandolas) desde 2013!
             </p>
           </div>
         </div>
-        <div className={styles.animations}>
+        <div className={styles.imageHome}>
           {/* <div className={styles.icons}>
               <FloatingIcons />
             </div> */}

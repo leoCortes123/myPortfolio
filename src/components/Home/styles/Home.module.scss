@@ -176,6 +176,7 @@ $bubble-border:
 	align-items: center;
 	flex: 2;
 	width: 60%;
+	padding-bottom: 1rem;
 
 	.bubbleContainer {
 		display: flex;
@@ -281,7 +282,7 @@ $bubble-border:
 			height: $px;
 			width: $px;
 			bottom: -2 * $px;
-			right: 100 * $px;
+			left: 20 * $px;
 			box-shadow:
 				0 $px $black,
 				0 2 * $px $black,
@@ -320,13 +321,14 @@ $bubble-border:
 		}
 	}
 
-	.animations {
+	.imageHome {
 		height: 70%;
 		width: 100%;
 		display: flex;
 		flex-flow: row wrap;
-		justify-content: center;
+		justify-content: start;
 		align-items: center;
+		padding-left: 5rem;
 
 		.icons {
 			display: flex;
@@ -336,10 +338,10 @@ $bubble-border:
 			height: 100%;
 		}
 		img {
-			width: 40%;
+			width: 45%;
 			height: auto;
 			object-fit: cover;
-			filter: drop-shadow(0 0 5px #d3d3d3);
+			filter: drop-shadow(0 0 5px #242424);
 			image-rendering: pixelated;
 		}
 	}
